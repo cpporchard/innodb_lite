@@ -1,5 +1,9 @@
 #include <strings.h>
+
+#define dberr_t int
+
 struct btr_pcur_t;
+
 /** Get the record buffer provided by the server, if there is one.
 @param  prebuilt        prebuilt struct
 @return the record buffer, or nullptr if none was provided */
@@ -96,7 +100,7 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
 
 
     ut_ad(prebuilt->sql_stat_start || prebuilt->select_lock_type != LOCK_NONE ||
-      MVCC::is_view_active(trx->read_view) || srv_read_only_mode);
+          MVCC::is_view_active(trx->read_view) || srv_read_only_mode);
 
     trx_start_if_not_started(trx, false, UT_LOCATION_HERE);
 
@@ -132,15 +136,15 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
     pcur->open_at_side(mode == PAGE_CUR_G, index, BTR_SEARCH_LEAF, false, 0,
                        &mtr);
 
-    rec_loop:
+rec_loop:
 
-        if (trx_is_interrupted(trx)) {
-            if (!spatial_search) {
-                pcur->store_position(&mtr);
-            }
-            err = DB_INTERRUPTED;
-            goto normal_return;
+    if (trx_is_interrupted(trx)) {
+        if (!spatial_search) {
+            pcur->store_position(&mtr);
         }
+        err = DB_INTERRUPTED;
+        goto normal_return;
+    }
 
     /*-------------------------------------------------------------*/
     /* PHASE 4: Look for matching records in a loop */
@@ -168,7 +172,7 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
     if (!rec_validate(rec, offsets) ||
         !btr_index_rec_validate(rec, index, false)) {
         goto next_rec;
-        }
+    }
 
     /*  Note that we cannot trust the up_match value in the cursor at this
         place because we can arrive here after moving the cursor! Thus
@@ -223,7 +227,7 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
                 if (err != DB_SUCCESS || rec == nullptr) {
                     goto next_rec;
                 }
-                                               }
+            }
         } else {
             if (!lock_sec_rec_cons_read_sees(rec, index, trx->read_view)) {
                 switch (row_search_idx_cond_check(buf, prebuilt, rec, offsets)) {
@@ -231,7 +235,7 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
                         goto next_rec;
                     case ICP_OUT_OF_RANGE:
                         err = DB_RECORD_NOT_FOUND;
-                    goto idx_cond_failed;
+                        goto idx_cond_failed;
                     case ICP_MATCH:
                         goto requires_clust_rec;
                 }
@@ -247,25 +251,25 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
     switch (row_search_idx_cond_check(buf, prebuilt, rec, offsets)) {
         case ICP_NO_MATCH:
             prebuilt->try_unlock(true);
-        goto next_rec;
+            goto next_rec;
         case ICP_OUT_OF_RANGE:
             err = DB_RECORD_NOT_FOUND;
-        prebuilt->try_unlock(true);
-        goto idx_cond_failed;
+            prebuilt->try_unlock(true);
+            goto idx_cond_failed;
         case ICP_MATCH:
             break;
     }
     if (index != clust_index && prebuilt->need_to_access_clustered) {
-        requires_clust_rec:
-          err = row_sel_get_clust_rec_for_mysql(
-              prebuilt, index, rec, thr, &clust_rec, &offsets, &heap,
-              nullptr, &mtr, prebuilt->get_lob_undo());
+    requires_clust_rec:
+        err = row_sel_get_clust_rec_for_mysql(
+            prebuilt, index, rec, thr, &clust_rec, &offsets, &heap,
+            nullptr, &mtr, prebuilt->get_lob_undo());
 
         if (err != DB_SUCCESS || clust_rec == nullptr ||
             rec_get_deleted_flag(clust_rec, comp)) {
             prebuilt->try_unlock(true);
             goto next_rec;
-            }
+        }
 
         result_rec = clust_rec;
     } else {
@@ -273,25 +277,25 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
     }
 
     if (!row_sel_store_mysql_rec(buf, prebuilt, result_rec, nullptr,
-                             result_rec != rec,
-                             result_rec != rec ? clust_index : index,
-                             prebuilt->index, offsets, false,
-                             nullptr, prebuilt->blob_heap)) {
+                                 result_rec != rec,
+                                 result_rec != rec ? clust_index : index,
+                                 prebuilt->index, offsets, false,
+                                 nullptr, prebuilt->blob_heap)) {
         goto next_rec;
-                             }
+    }
 
     err = DB_SUCCESS;
 
-    idx_cond_failed:
+idx_cond_failed:
     if (!unique_search || !index->is_clustered() || direction != 0 ||
         prebuilt->select_lock_type != LOCK_NONE || prebuilt->used_in_HANDLER ||
         prebuilt->innodb_api) {
         pcur->store_position(&mtr);
-        }
+    }
 
     goto normal_return;
 
-    next_rec:
+next_rec:
     prev_vrow = vrow;
     vrow = nullptr;
     end_loop++;
@@ -343,7 +347,6 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
                 prev_rec = nullptr;
                 goto rec_loop;
             }
-
         }
 
         if (moves_up) {
@@ -353,7 +356,5 @@ dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
                 move = pcur->move_to_next(&mtr); // <---- BTREE
             }
         }
-
-
     }
 }

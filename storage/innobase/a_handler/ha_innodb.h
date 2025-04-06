@@ -30,6 +30,8 @@ public:
     int rnd_init(bool scan);
 
     int rnd_next(uchar *buf);
+
+    int general_fetch(uchar *buf, uint direction, uint match_mode);
 };
 
 #endif //HA_INNODB_H
