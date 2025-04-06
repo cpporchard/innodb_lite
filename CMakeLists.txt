@@ -10,8 +10,8 @@ add_executable(innobase_lite main.cpp
         sql/table.h
         sql/handler.h
         sql/handler.cc
-        storage/innobase/a_handler/ha_innodb.cc
-        storage/innobase/a_handler/ha_innodb.h
+        storage/innobase/a0_handler/ha_innodb.cc
+        storage/innobase/a0_handler/ha_innodb.h
         storage/innobase/c_row/row0sel.cc
         storage/innobase/b0_trx/trx0trx.h
         storage/innobase/d0_btr/btr0pcur.h
