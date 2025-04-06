@@ -13,7 +13,7 @@ int main() {
     TableScanIterator iter(nullptr, &table, 3.0, &examined_rows);
 
     if (iter.Init())
-        return true;
+        return 1;
 
     while (iter.Read() == 0) {
         std::cout << "Row: " << iter.m_record << std::endl;

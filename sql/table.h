@@ -2,10 +2,10 @@
 #define TABLE_INCLUDED
 #include "handler.h"
 
-struct handler;
+
+class handler;
 
 struct TABLE_SHARE {
-
 };
 
 struct TABLE {

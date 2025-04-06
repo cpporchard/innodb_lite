@@ -1,5 +1,7 @@
 #ifndef TRX0TRX_H
 #define TRX0TRX_H
+#include <cstddef>
+
 #define ulint unsigned long
 
 struct trx_t {
@@ -14,11 +16,7 @@ namespace ut {
     };
 }
 
-/** Starts the transaction if it is not yet started.
-@param[in] trx Transaction
-@param[in] read_write True if read write transaction */
-void trx_start_if_not_started_low(trx_t *trx, bool read_write) {
-}
+void trx_start_if_not_started_low(trx_t *trx, bool read_write);
 
 static inline void trx_start_if_not_started(trx_t *t, bool rw, ut::Location l) {
     t->start_line = l.line;
