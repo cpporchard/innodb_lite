@@ -16,24 +16,15 @@ class buf_page_t {
 class page_id_t {
 
 public:
-    /** Tablespace id. */
     space_id_t m_space;
-
-    /** Page number. */
     page_no_t m_page_no;
 
     page_id_t(space_id_t space, page_no_t page_no)
         : m_space(space), m_page_no(page_no) {}
 };
 
-/** The buffer control block structure */
 //In many scenarios, a block is a page.
 struct buf_block_t {
-    /** @name General fields */
-    /** @{ */
-
-    /** page information; this must be the first field, so
-    that buf_pool->page_hash can point to buf_page_t or buf_block_t */
     buf_page_t page;
 };
 
@@ -49,9 +40,7 @@ struct Buf_fetch {
   @param[in] page_size          Size of page on disk. */
   Buf_fetch(const page_id_t &page_id, const page_size_t &page_size) noexcept
       : m_page_id(page_id),
-        m_page_size(page_size),
-        m_is_temp_space(fsp_is_system_temporary(page_id.space())),
-        m_buf_pool(buf_pool_get(m_page_id)) {}
+        m_page_size(page_size){}
 
   /** For fetching a single page.
   @return block from pool on success or nullptr on failure. */
@@ -107,8 +96,7 @@ struct Buf_fetch {
   ulint m_rw_latch;
   /** Hint about page to fetch. */
   buf_block_t *m_guess{};
-  /** Fetch mode. */
-  Page_fetch m_mode;
+
   /** File from where called. */
   const char *m_file{};
   /** Line number in file from where called. */
@@ -120,9 +108,9 @@ struct Buf_fetch {
   /** Number of retries before giving up. */
   size_t m_retries{};
   /** Buffer pool to fetch from. */
-  buf_pool_t *m_buf_pool{};
-  /** Hash table lock. */
-  rw_lock_t *m_hash_lock{};
+  // buf_pool_t *m_buf_pool{};
+  // /** Hash table lock. */
+  // rw_lock_t *m_hash_lock{};
 
   friend T;
 };

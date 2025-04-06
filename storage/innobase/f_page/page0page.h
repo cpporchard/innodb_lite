@@ -5,9 +5,10 @@
 #ifndef PAGE0PAGE_H
 #define PAGE0PAGE_H
 #include <cstddef>
+typedef std::byte rec_t;
 
 static inline std::byte *page_get_infimum_rec(std::byte *page) {
-    return page + page_get_infimum_offset(page);
+    return page;
 }
 
 static inline bool page_rec_is_infimum(const rec_t *rec) /*!< in: record */
