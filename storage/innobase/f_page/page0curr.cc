@@ -2,6 +2,7 @@
 // Created by Arjun Sunil Kumar on 4/5/25.
 //
 
+#include "page0cur.h"
 #include "page0page.h"
 struct buf_block_t;
 
@@ -14,3 +15,4 @@ static inline void page_cur_set_before_first(
     cur->block = (buf_block_t *) block;
     cur->rec = page_get_infimum_rec(buf_block_get_frame(cur->block));
 }
+

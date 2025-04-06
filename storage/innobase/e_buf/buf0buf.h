@@ -5,7 +5,25 @@
 #ifndef BUF0BUF_H
 #define BUF0BUF_H
 
+/** Page number */
+typedef uint32_t page_no_t;
+/** Tablespace identifier */
+typedef uint32_t space_id_t;
+
 class buf_page_t {
+};
+
+class page_id_t {
+
+public:
+    /** Tablespace id. */
+    space_id_t m_space;
+
+    /** Page number. */
+    page_no_t m_page_no;
+
+    page_id_t(space_id_t space, page_no_t page_no)
+        : m_space(space), m_page_no(page_no) {}
 };
 
 /** The buffer control block structure */
