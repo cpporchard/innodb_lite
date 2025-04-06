@@ -24,6 +24,15 @@ static inline void trx_start_if_not_started(trx_t *t, bool rw, ut::Location l) {
     trx_start_if_not_started_low(t, rw);
 }
 
+class TrxInInnoDB {
+public:
+    static void begin_stmt(trx_t *trx) { enter(trx, false); }
+    static void end_stmt(trx_t *trx) { exit(trx); }
+
+private:
+    static void enter(trx_t *trx, bool disable) {}
+    static void exit(trx_t *trx) {}
+};
 
 
 #endif //TRX0TRX_H
