@@ -1,5 +1,6 @@
 #ifndef TRX0TRX_H
 #define TRX0TRX_H
+#define ulint unsigned long
 
 struct trx_t {
     ulint start_line;       /*!< Track where it was started from */

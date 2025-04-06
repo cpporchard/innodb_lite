@@ -52,8 +52,11 @@ struct Buf_fetch_normal : public Buf_fetch<Buf_fetch_normal> {
   /** Fetch a block from the hash table or read from disk if necessary.
   @param[out] block             Block to fetch.
   @return DB_SUCCESS or error code. */
-  dberr_t get(buf_block_t *&block) noexcept;
+  dberr_t get(buf_block_t *&block);
 };
+
+dberr_t Buf_fetch_normal::get(buf_block_t *&block) {
+}
 
 template <typename T>
 buf_block_t *Buf_fetch<T>::single_page() {

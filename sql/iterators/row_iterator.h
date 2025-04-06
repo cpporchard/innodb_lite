@@ -18,7 +18,7 @@ public:
 
     virtual int Read() = 0;
 
-    virtual void UnlockRow() = 0;
+    // virtual void UnlockRow() = 0;
 
 protected:
     THD *thd() const { return m_thd; }
@@ -32,7 +32,7 @@ public:
     TableRowIterator(THD *thd, TABLE *table) : RowIterator(thd), m_table(table) {
     }
 
-    void UnlockRow() override;
+    // void UnlockRow() override;
 
 protected:
     TABLE *table() const { return m_table; }

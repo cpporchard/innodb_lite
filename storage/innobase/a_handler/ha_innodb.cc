@@ -3,6 +3,15 @@
 
 #define ROW_SEL_NEXT 0
 
+ha_innobase::ha_innobase(handlerton *hton, TABLE_SHARE *table_share): handler(hton, table_share) {
+    // Constructor logic
+}
+
+ha_innobase::~ha_innobase() {
+
+}
+
+
 int ha_innobase::rnd_init(bool scan) {
     // int err = change_active_index(table_share->primary_key);
     //
