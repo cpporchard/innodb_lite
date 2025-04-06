@@ -11,7 +11,7 @@ void btr_pcur_t::move_to_next_page(mtr_t *mtr) {
     auto index = get_btr_cur()->index;
     auto page = get_page();
     auto next_page_no = 0;
-    auto mode = 0;
+    ulint mode = 0;
 
     auto next_block =  //<--- Core Logic
         btr_block_get(page_id_t(0, next_page_no),page_size_t{}, mode, UT_LOCATION_HERE, index, mtr);
