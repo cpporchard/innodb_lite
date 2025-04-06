@@ -1,5 +1,5 @@
 #include "ha_innodb.h"
-#include "../c_row/row0sel.cc"
+#include "../c_row/row0sel.h"
 
 #define ROW_SEL_NEXT 0
 

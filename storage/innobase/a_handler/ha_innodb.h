@@ -31,9 +31,9 @@ public:
     //
     // int rnd_next(uchar *buf);
 
-    int rnd_init(bool scan);
+    int rnd_init(bool scan) override;
 
-    int rnd_next(uchar *buf);
+    int rnd_next(uchar *buf) override;
 
     int general_fetch(uchar *buf, uint direction, uint match_mode);
 };

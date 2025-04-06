@@ -6,56 +6,8 @@
 #include "buf0buf.h"
 #include "../b0_trx/trx0trx.h"
 
-/** @name Modes for buf_page_get_gen */
-/** @{ */
-enum class Page_fetch {
-  /** Get always */
-  NORMAL,
-
-  /** Same as NORMAL, but hint that the fetch is part of a large scan.
-  Try not to flood the buffer pool with pages that may not be accessed again
-  any time soon. */
-  SCAN,
-
-  /** get if in pool */
-  IF_IN_POOL,
-
-  /** get if in pool, do not make the block young in the LRU list */
-  PEEK_IF_IN_POOL,
-
-  /** get and bufferfix, but set no latch; we have separated this case, because
-  it is error-prone programming not to set a latch, and it  should be used with
-  care */
-  NO_LATCH,
-
-  /** Get the page only if it's in the buffer pool, if not then set a watch on
-  the page. */
-  IF_IN_POOL_OR_WATCH,
-
-  /** Like Page_fetch::NORMAL, but do not mind if the file page has been
-  freed. */
-  POSSIBLY_FREED,
-
-  /** Like Page_fetch::POSSIBLY_FREED, but do not initiate read ahead. */
-  POSSIBLY_FREED_NO_READ_AHEAD,
-};
-
-
-
-struct Buf_fetch_normal : public Buf_fetch<Buf_fetch_normal> {
-  /** Constructor.
-  @param[in] page_id            Page ID of page to fetch.
-  @param[in] page_size          Size of page on disk. */
-  Buf_fetch_normal(const page_id_t &page_id, const page_size_t &page_size)
-      : Buf_fetch(page_id, page_size) {}
-
-  /** Fetch a block from the hash table or read from disk if necessary.
-  @param[out] block             Block to fetch.
-  @return DB_SUCCESS or error code. */
-  dberr_t get(buf_block_t *&block);
-};
-
 dberr_t Buf_fetch_normal::get(buf_block_t *&block) {
+  return 1;
 }
 
 template <typename T>

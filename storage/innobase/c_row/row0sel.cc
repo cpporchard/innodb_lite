@@ -1,6 +1,3 @@
-#include <strings.h>
-#include <cstddef>
-
 #include "row0mysql.h"
 #include "../d0_btr/btr0pcur.h"
 #include "../b0_trx/trx0trx.h"

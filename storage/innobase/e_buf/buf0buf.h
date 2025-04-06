@@ -113,9 +113,54 @@ struct Buf_fetch {
   // buf_pool_t *m_buf_pool{};
   // /** Hash table lock. */
   // rw_lock_t *m_hash_lock{};
-
-  friend T;
 };
 
+struct Buf_fetch_normal : public Buf_fetch<Buf_fetch_normal> {
+    Buf_fetch_normal(const page_id_t &page_id, const page_size_t &page_size)
+        : Buf_fetch(page_id, page_size) {}
+
+    dberr_t get(buf_block_t *&block);  // ✅ Only declaration
+};
+
+/** @name Modes for buf_page_get_gen */
+/** @{ */
+enum class Page_fetch {
+    /** Get always */
+    NORMAL,
+
+    /** Same as NORMAL, but hint that the fetch is part of a large scan.
+    Try not to flood the buffer pool with pages that may not be accessed again
+    any time soon. */
+    SCAN,
+
+    /** get if in pool */
+    IF_IN_POOL,
+
+    /** get if in pool, do not make the block young in the LRU list */
+    PEEK_IF_IN_POOL,
+
+    /** get and bufferfix, but set no latch; we have separated this case, because
+    it is error-prone programming not to set a latch, and it  should be used with
+    care */
+    NO_LATCH,
+
+    /** Get the page only if it's in the buffer pool, if not then set a watch on
+    the page. */
+    IF_IN_POOL_OR_WATCH,
+
+    /** Like Page_fetch::NORMAL, but do not mind if the file page has been
+    freed. */
+    POSSIBLY_FREED,
+
+    /** Like Page_fetch::POSSIBLY_FREED, but do not initiate read ahead. */
+    POSSIBLY_FREED_NO_READ_AHEAD,
+  };
+
+
+buf_block_t *buf_page_get_gen(const page_id_t &page_id,
+                              const page_size_t &page_size, ulint rw_latch,
+                              buf_block_t *guess, Page_fetch mode,
+                              ut::Location location, mtr_t *mtr,
+                              bool dirty_with_no_latch = false);
 
 #endif //BUF0BUF_H

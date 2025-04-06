@@ -4,7 +4,7 @@
 #include "../d0_btr/btr0pcur.h"
 #include "../b0_trx/trx0trx.h"
 #include "../e_buf/buf0buf.h"
-#include "../e_buf/buf0buf.cc"
+#include "../e_buf/buf0buf.h"
 #include "../d0_btr/btr0btr.h"
 
 
