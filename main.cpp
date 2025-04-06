@@ -7,6 +7,7 @@
 
 int main() {
     TABLE table;
+    table.record = new uchar[100]; // Allocate memory for the record
     table.file = new ha_innobase(nullptr, nullptr);
 
     ha_rows examined_rows = 0;

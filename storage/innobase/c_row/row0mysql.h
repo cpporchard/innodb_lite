@@ -4,6 +4,7 @@
 #define ROW0MYSQL_H
 
 struct row_prebuilt_t {
+public:
     btr_pcur_t *pcur;
 };
 

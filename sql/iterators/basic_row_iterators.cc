@@ -11,7 +11,7 @@ TableScanIterator::TableScanIterator(THD *thd, TABLE *table,
                                      double expected_rows,
                                      ha_rows *examined_rows)
     : TableRowIterator(thd, table),
-      m_record(nullptr) {
+      m_record(table->record) {
 }
 
 TableScanIterator::~TableScanIterator() = default;
@@ -25,7 +25,7 @@ int TableScanIterator::Read() {
 
     while ((tmp = table()->file->ha_rnd_next(m_record))) {
         if (tmp == HA_ERR_RECORD_DELETED && !thd()->killed) continue;
-        return -1;
+        return 0;
     }
     return 0;
 }

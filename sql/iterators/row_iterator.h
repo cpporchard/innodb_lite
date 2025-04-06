@@ -3,6 +3,9 @@
 
 #include "../table.h"
 
+struct THD;
+struct TABLE;
+
 class RowIterator {
 public:
     explicit RowIterator(THD *thd) : m_thd(thd) {

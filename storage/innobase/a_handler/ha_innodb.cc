@@ -35,5 +35,7 @@ int ha_innobase::general_fetch(
     uchar *buf,
     uint direction,
     uint match_mode) {
-    return row_search_mvcc(buf, PAGE_CUR_UNSUPP, nullptr, match_mode, direction);
+    auto prebuilt = row_prebuilt_t{};
+    prebuilt.pcur = new btr_pcur_t{};
+    return row_search_mvcc(buf, PAGE_CUR_UNSUPP, &prebuilt, match_mode, direction);
 }
