@@ -15,21 +15,21 @@ public:
     ~ha_innobase() override;
 
 
-    int create(const char *name, TABLE *form, HA_CREATE_INFO *, dd::Table *table_def) override;
+    // int create(const char *name, TABLE *form, HA_CREATE_INFO *, dd::Table *table_def) override;
+    //
+    // int open(const char *name, int mode, uint test_if_locked, const dd::Table *table_def) override;
+    //
+    // int close() override;
 
-    int open(const char *name, int mode, uint test_if_locked, const dd::Table *table_def) override;
+    // int write_row(uchar *buf) override;
+    //
+    // int update_row(const uchar *old_data, uchar *new_data) override;
+    //
+    // int delete_row(const uchar *buf) override;
 
-    int close() override;
+    int rnd_init(bool scan);
 
-    int write_row(uchar *buf) override;
-
-    int update_row(const uchar *old_data, uchar *new_data) override;
-
-    int delete_row(const uchar *buf) override;
-
-    int rnd_init(bool scan) override;
-
-    int rnd_next(uchar *buf) override;
+    int rnd_next(uchar *buf);
 };
 
 #endif //HA_INNODB_H
