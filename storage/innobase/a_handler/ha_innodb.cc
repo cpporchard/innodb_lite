@@ -26,5 +26,5 @@ int ha_innobase::general_fetch(
     uchar *buf,
     uint direction,
     uint match_mode) {
-    return row_search_mvcc(buf, nullptr, nullptr, match_mode, direction);
+    return row_search_mvcc(buf, PAGE_CUR_UNSUPP, nullptr, match_mode, direction);
 }

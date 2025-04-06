@@ -9,9 +9,11 @@
 #include "../f_page/page0page.h"
 
 #define dberr_t int
+typedef unsigned char uchar;
+
 #define UT_LOCATION_HERE (ut::Location{__FILE__, __LINE__})
 
-dberr_t row_search_mvcc(std::byte *buf, page_cur_mode_t mode,
+dberr_t row_search_mvcc(uchar *buf, page_cur_mode_t mode,
                         row_prebuilt_t *prebuilt, ulint match_mode,
                         const ulint direction) {
     btr_pcur_t *pcur = prebuilt->pcur;

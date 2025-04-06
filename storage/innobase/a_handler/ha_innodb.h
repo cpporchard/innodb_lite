@@ -27,6 +27,10 @@ public:
     //
     // int delete_row(const uchar *buf) override;
 
+    // int rnd_init(bool scan);
+    //
+    // int rnd_next(uchar *buf);
+
     int rnd_init(bool scan);
 
     int rnd_next(uchar *buf);

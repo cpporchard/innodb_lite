@@ -2,6 +2,9 @@
 #define HANDLER_INCLUDED
 #include "table.h"
 
+struct TABLE_SHARE;
+struct TABLE;
+struct THD;
 
 struct handlerton {
 };
@@ -10,11 +13,9 @@ typedef unsigned char uchar; /* Short for unsigned char */
 #define thr_lock_type int
 
 class handler {
-protected:
+public:
     TABLE_SHARE *table_share; /* The table definition */
     TABLE *table; /* The current open table */
-
-public:
     handlerton *ht; /* storage engine of this handler */
 
 

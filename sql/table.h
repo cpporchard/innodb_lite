@@ -2,6 +2,8 @@
 #define TABLE_INCLUDED
 #include "handler.h"
 
+struct handler;
+
 struct TABLE_SHARE {
 
 };

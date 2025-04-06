@@ -1,6 +1,8 @@
-//
-// Created by Arjun Sunil Kumar on 4/5/25.
-//
+#include <cstdint>
+#include "../f_page/page0cur.h"
+#include "../d2_mtr_later/mtr0mtr.h"
+#include "../d0_btr/btr0pcur.h"
+
 
 #ifndef BUF0BUF_H
 #define BUF0BUF_H

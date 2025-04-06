@@ -38,7 +38,7 @@ static inline buf_block_t *btr_block_get_func(
     ut::Location location, mtr_t *mtr) {
     buf_block_t *block;
 
-    block = buf_page_get_gen(page_id, page_size, mode, nullptr, Page_fetch::NORMAL, location, mtr);
+    block = buf_page_get_gen(page_id, page_size,mode, nullptr, Page_fetch::NORMAL, location, mtr,true);
 
     // if (mode != RW_NO_LATCH) {
     //     buf_block_dbg_add_level(block, index != nullptr && dict_index_is_ibuf(index)

@@ -4,6 +4,7 @@
 
 
 #include "buf0buf.h"
+#include "../b0_trx/trx0trx.h"
 
 /** @name Modes for buf_page_get_gen */
 /** @{ */
@@ -59,7 +60,7 @@ buf_block_t *Buf_fetch<T>::single_page() {
   buf_block_t *block;
 
   for (;;) {
-    if (static_cast<T *>(this)->get(block) == DB_NOT_FOUND) {
+    if (static_cast<T *>(this)->get(block) == -1) {
       return nullptr;
     }
 
@@ -130,4 +131,5 @@ buf_block_t *buf_page_get_gen(const page_id_t &page_id,
     return (fetch.single_page());
 
   }
+  return nullptr;
 }
