@@ -45,8 +45,6 @@ public:
     }
 };
 
-
-
 /**
     The buf_block_t is the memory management structure corresponding to the page, and the
     complete page content can be accessed through the block->frame pointer.
@@ -54,8 +52,37 @@ public:
 struct buf_block_t {
     buf_page_t page;
     BPageMutex mutex;
+    std::byte *frame; // Pointer to the 16KB memory buffer
 };
 
+//------------------------Buffer Pool----------------------//
+/** A chunk of buffers. The buffer pool is allocated in chunks. */
+struct buf_chunk_t {
+    ulint size; /*!< size of frames[] and blocks[] */
+    buf_block_t *blocks; /*!< array of buffer control blocks */
+};
+
+
+/** @brief The buffer pool structure.
+
+NOTE! The definition appears here only for other modules of this
+directory (buf) to see it. Do not use from outside! */
+
+struct buf_pool_t {
+    /** Number of buffer pool chunks */
+    volatile ulint n_chunks;
+    /** buffer pool chunks */
+    buf_chunk_t *chunks;
+};
+
+
+/** Returns the buffer pool instance given a page id.
+@param[in]      page_id page id
+@return buffer pool */
+static inline buf_pool_t *buf_pool_get(const page_id_t &page_id) {
+    auto pool = new buf_pool_t;
+    return pool;
+}
 
 //----------------------Page Fetcher----------------------//
 
@@ -73,7 +100,8 @@ struct Buf_fetch {
     Buf_fetch(const page_id_t &page_id, const page_size_t &page_size) noexcept
         : m_page_id(page_id),
           m_page_size(page_size),
-          m_mode(Page_fetch::NORMAL) {
+          m_mode(Page_fetch::NORMAL),
+          m_buf_pool(buf_pool_get(m_page_id)) {
     }
 
     bool is_optimistic() const;
@@ -91,6 +119,7 @@ struct Buf_fetch {
     mtr_t *m_mtr{};
     Page_fetch m_mode; /** Page fetch mode. */
     bool m_dirty_with_no_latch{}; /** Mark page as dirty even if page is being pinned without any latch. */
+    buf_pool_t *m_buf_pool{}; /** Buffer pool to fetch from. */
 };
 
 struct Buf_fetch_normal : Buf_fetch<Buf_fetch_normal> {

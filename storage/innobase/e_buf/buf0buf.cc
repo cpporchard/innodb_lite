@@ -48,6 +48,7 @@ bool Buf_fetch<T>::is_optimistic() const {
 
 dberr_t Buf_fetch_normal::get(buf_block_t *&block) {
     for (;;) {
+        // ut_ad(!rw_lock_own(buf_page_hash_lock_get(m_buf_pool, m_page_id), RW_LOCK_S));
         block = new buf_block_t{};
         break;
     }

@@ -31,4 +31,7 @@ add_executable(innobase_lite main.cpp
         storage/innobase/b0_trx/trx0trx.cc
         storage/innobase/g_log_redo_wal/log0log.cc
         storage/innobase/d2_mtr_later/mtr0mtr.cc
+        storage/innobase/e_buf/buf0rea.cc
+        storage/innobase/z_fil_later/fil0fil.cc
+        storage/innobase/e_buf/buf0flu.cc
 )
