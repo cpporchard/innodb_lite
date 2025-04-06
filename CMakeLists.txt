@@ -22,4 +22,6 @@ add_executable(innobase_lite main.cpp
         storage/innobase/f_page/page0curr.cc
         storage/innobase/f_page/page0page.h
         storage/innobase/d0_btr/btr0btr.cc
+        storage/innobase/f_page/page0types.h
+        storage/innobase/c_row/row0mysql.h
 )

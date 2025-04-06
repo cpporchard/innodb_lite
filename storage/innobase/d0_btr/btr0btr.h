@@ -1,15 +1,29 @@
-//
-// Created by Arjun Sunil Kumar on 4/5/25.
-//
-
 #ifndef BTR0BTR_H
 #define BTR0BTR_H
-#include <strings.h>
 
-#ifndef UNIV_HOTBACKUP
 struct buf_block_t;
 
-
+/** Latching modes for btr_cur_search_to_nth_level(). */
+enum btr_latch_mode : size_t {
+    /** Search a record on a leaf page and S-latch it. */
+    BTR_SEARCH_LEAF = 0,
+    /** (Prepare to) modify a record on a leaf page and X-latch it. */
+    BTR_MODIFY_LEAF = 1,
+    /** Obtain no latches. */
+    BTR_NO_LATCHES = 2,
+    /** Start modifying the entire B-tree. */
+    BTR_MODIFY_TREE = 33,
+    /** Continue modifying the entire B-tree. */
+    BTR_CONT_MODIFY_TREE = 34,
+    /** Search the previous record. */
+    BTR_SEARCH_PREV = 35,
+    /** Modify the previous record. */
+    BTR_MODIFY_PREV = 36,
+    /** Start searching the entire B-tree. */
+    BTR_SEARCH_TREE = 37,
+    /** Continue searching the entire B-tree. */
+    BTR_CONT_SEARCH_TREE = 38
+};
 
 
 /** Gets a buffer page and declares its latching order level.

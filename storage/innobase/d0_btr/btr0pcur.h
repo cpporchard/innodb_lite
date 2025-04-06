@@ -4,9 +4,11 @@
 
 #ifndef BTR0PCUR_H
 #define BTR0PCUR_H
+#include <cstddef>
 
 /* The persistent B-tree cursor structure. This is used mainly for SQL
 selects, updates, and deletes. */
+typedef std::byte rec_t;
 
 struct btr_pcur_t {
     /** Sets the old_rec_buf field to nullptr.

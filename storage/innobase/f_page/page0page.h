@@ -4,9 +4,24 @@
 
 #ifndef PAGE0PAGE_H
 #define PAGE0PAGE_H
+#include <cstddef>
 
-static inline byte *page_get_infimum_rec(byte *page) {
+static inline std::byte *page_get_infimum_rec(std::byte *page) {
     return page + page_get_infimum_offset(page);
+}
+
+static inline bool page_rec_is_infimum(const rec_t *rec) /*!< in: record */
+{
+    // ut_ad(page_rec_check(rec));
+    // return (page_rec_is_infimum_low(page_offset(rec)));
+    return true;
+}
+
+static inline bool page_rec_is_supremum(const rec_t *rec) /*!< in: record */
+{
+    // ut_ad(page_rec_check(rec));
+    // return (page_rec_is_supremum_low(page_offset(rec)));
+    return true;
 }
 
 #endif //PAGE0PAGE_H
