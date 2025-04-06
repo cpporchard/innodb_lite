@@ -2,18 +2,18 @@
 #define BUF0BUF_H
 
 #include <cstdint>
+#include <mutex>
+
 #include "../f_page/page0cur.h"
 #include "../d2_mtr_later/mtr0mtr.h"
 #include "../d0_btr/btr0pcur.h"
 
-/** Page number */
-typedef uint32_t page_no_t;
-/** Tablespace identifier */
-typedef uint32_t space_id_t;
+using BPageMutex = std::mutex;
 
-class buf_page_t {
-};
 
+//----------------------Page ID----------------------//
+typedef uint32_t space_id_t; /** Tablespace identifier */
+typedef uint32_t page_no_t; /** Page number */
 class page_id_t {
 public:
     space_id_t m_space;
@@ -24,97 +24,40 @@ public:
     }
 };
 
+
+//----------------------Page & Block----------------------//
+/** Flags for io_fix types */
+enum buf_io_fix : uint8_t {
+    BUF_IO_NONE = 0, /** no pending I/O */
+    BUF_IO_READ, /** read pending */
+    BUF_IO_WRITE, /** write pending */
+    BUF_IO_PIN /** disallow relocation of block and its removal from the flush_list */
+};
+
+class buf_page_t {
+public:
+    std::atomic<buf_io_fix> io_fix;
+    std::chrono::steady_clock::time_point access_time;
+
+
+    buf_io_fix get_io_fix() const {
+        return io_fix.load();
+    }
+};
+
+
+
 /**
     The buf_block_t is the memory management structure corresponding to the page, and the
     complete page content can be accessed through the block->frame pointer.
 */
 struct buf_block_t {
     buf_page_t page;
+    BPageMutex mutex;
 };
 
-template<typename T>
-struct Buf_fetch {
-    Buf_fetch(const page_id_t &page_id, const page_size_t &page_size) noexcept
-        : m_page_id(page_id),
-          m_page_size(page_size) {
-    }
 
-    buf_block_t *single_page();
-
-private:
-    /**  Lookup page in the hash table.
-    @return block if found or nullptr if not found. */
-    buf_block_t *lookup();
-
-    /** Get page if it's in the buffer pool or set a watch on it.
-    @return block that is being watched or nullptr. */
-    buf_block_t *is_on_watch();
-
-    /** Initiate a read request from persistent store. */
-    void read_page();
-
-    dberr_t zip_page_handler(buf_block_t *&fix_block);
-
-    /** Check block state.
-    @return DB_SUCCESS or error code. */
-    dberr_t check_state(buf_block_t *&block);
-
-    /** Temporary table pages have different latching rules because they are
-    not redo logged.
-    @param[in,out] block          Temporary tablespace to fetch. */
-    void temp_space_page_handler(buf_block_t *block);
-
-    /** Add the page to the mini-transaction along with latching context.
-    @param[in,out] block          Block for which to add the latching context. */
-    void mtr_add_page(buf_block_t *block);
-
-    /** Check if fetch mode is an optimistic fetch.
-    @return true if it's an optimistic fetch. */
-    bool is_optimistic() const;
-
-    /** Check if the fetch mode is OK with freed pages.
-    @return true if freed pages are OK. */
-    [[nodiscard]] bool is_possibly_freed() const noexcept;
-
-#if defined UNIV_DEBUG || defined UNIV_IBUF_DEBUG
-  dberr_t debug_check(buf_block_t *fix_block);
-#endif /* UNIV_DEBUG || UNIV_IBUF_DEBUG */
-
-public:
-    /** ID of page to lookup. */
-    const page_id_t &m_page_id;
-    /** Size of page on disk. */
-    const page_size_t &m_page_size;
-    /** true if page belongs to a temporary tablespace. */
-    const bool m_is_temp_space{};
-    /** Latch mode required on the page. */
-    ulint m_rw_latch{};
-    /** Hint about page to fetch. */
-    buf_block_t *m_guess{};
-
-    /** File from where called. */
-    const char *m_file{};
-    /** Line number in file from where called. */
-    ulint m_line{};
-    /** Mini-transaction covering the fetch. */
-    mtr_t *m_mtr{};
-    /** Mark page as dirty even if page is being pinned without any latch. */
-    bool m_dirty_with_no_latch{};
-    /** Number of retries before giving up. */
-    size_t m_retries{};
-    /** Buffer pool to fetch from. */
-    // buf_pool_t *m_buf_pool{};
-    // /** Hash table lock. */
-    // rw_lock_t *m_hash_lock{};
-};
-
-struct Buf_fetch_normal : public Buf_fetch<Buf_fetch_normal> {
-    Buf_fetch_normal(const page_id_t &page_id, const page_size_t &page_size)
-        : Buf_fetch(page_id, page_size) {
-    }
-
-    dberr_t get(buf_block_t *&block);
-};
+//----------------------Page Fetcher----------------------//
 
 enum class Page_fetch {
     NORMAL,
@@ -125,10 +68,68 @@ enum class Page_fetch {
 };
 
 
+template<typename T>
+struct Buf_fetch {
+    Buf_fetch(const page_id_t &page_id, const page_size_t &page_size) noexcept
+        : m_page_id(page_id),
+          m_page_size(page_size),
+          m_mode(Page_fetch::NORMAL) {
+    }
+
+    bool is_optimistic() const;
+
+    void mtr_add_page(buf_block_t *block);
+
+    buf_block_t *single_page();
+
+    const page_id_t &m_page_id; /** ID of page to lookup. */
+    const page_size_t &m_page_size; /** Size of page on disk. */
+    ulint m_rw_latch{}; /** Latch mode required on the page. */
+    buf_block_t *m_guess{}; /** Hint about page to fetch. */
+    const char *m_file{}; /** File from where called. */
+    ulint m_line{}; /** Line number in file from where called. */
+    mtr_t *m_mtr{};
+    Page_fetch m_mode; /** Page fetch mode. */
+    bool m_dirty_with_no_latch{}; /** Mark page as dirty even if page is being pinned without any latch. */
+};
+
+struct Buf_fetch_normal : Buf_fetch<Buf_fetch_normal> {
+    Buf_fetch_normal(const page_id_t &page_id, const page_size_t &page_size)
+        : Buf_fetch(page_id, page_size) {
+    }
+
+    dberr_t get(buf_block_t *&block);
+};
+
+
 buf_block_t *buf_page_get_gen(const page_id_t &page_id,
                               const page_size_t &page_size, ulint rw_latch,
                               buf_block_t *guess, Page_fetch mode,
                               ut::Location location, mtr_t *mtr,
                               bool dirty_with_no_latch = false);
+
+
+/** Gets the mutex of a block.
+ @return pointer to mutex protecting bpage */
+static inline BPageMutex *buf_page_get_mutex(
+    const buf_page_t *bpage) /*!< in: pointer to control block */
+{
+    return &((buf_block_t *) bpage)->mutex;
+}
+
+
+/** Gets the io_fix state of a block.
+ @return io_fix state */
+static inline enum buf_io_fix buf_page_get_io_fix(const buf_page_t *bpage) {
+    return bpage->get_io_fix();
+}
+
+static inline ulint buf_block_unfix(buf_block_t *block) {
+    return 0;
+}
+
+static inline std::chrono::steady_clock::time_point buf_page_is_accessed(const buf_page_t *bpage) {
+    return (bpage->access_time);
+}
 
 #endif //BUF0BUF_H
