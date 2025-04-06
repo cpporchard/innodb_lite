@@ -1,11 +1,10 @@
+#ifndef BUF0BUF_H
+#define BUF0BUF_H
+
 #include <cstdint>
 #include "../f_page/page0cur.h"
 #include "../d2_mtr_later/mtr0mtr.h"
 #include "../d0_btr/btr0pcur.h"
-
-
-#ifndef BUF0BUF_H
-#define BUF0BUF_H
 
 /** Page number */
 typedef uint32_t page_no_t;
@@ -30,22 +29,13 @@ struct buf_block_t {
     buf_page_t page;
 };
 
-
-/** This class implements the rules for fetching the pages from the buffer
-pool depending on the context. It will set the page latches as requested,
-detect and handle stale reads and initiate read requests if required. */
 template <typename T>
 struct Buf_fetch {
- public:
-  /** Constructor.
-  @param[in] page_id            ID of page to fetch.
-  @param[in] page_size          Size of page on disk. */
+
   Buf_fetch(const page_id_t &page_id, const page_size_t &page_size) noexcept
       : m_page_id(page_id),
         m_page_size(page_size){}
 
-  /** For fetching a single page.
-  @return block from pool on success or nullptr on failure. */
   buf_block_t *single_page();
 
  private:
@@ -95,7 +85,7 @@ struct Buf_fetch {
   /** true if page belongs to a temporary tablespace. */
   const bool m_is_temp_space{};
   /** Latch mode required on the page. */
-  ulint m_rw_latch;
+  ulint m_rw_latch{};
   /** Hint about page to fetch. */
   buf_block_t *m_guess{};
 
@@ -119,41 +109,15 @@ struct Buf_fetch_normal : public Buf_fetch<Buf_fetch_normal> {
     Buf_fetch_normal(const page_id_t &page_id, const page_size_t &page_size)
         : Buf_fetch(page_id, page_size) {}
 
-    dberr_t get(buf_block_t *&block);  // ✅ Only declaration
+    dberr_t get(buf_block_t *&block);
 };
 
-/** @name Modes for buf_page_get_gen */
-/** @{ */
 enum class Page_fetch {
-    /** Get always */
     NORMAL,
-
-    /** Same as NORMAL, but hint that the fetch is part of a large scan.
-    Try not to flood the buffer pool with pages that may not be accessed again
-    any time soon. */
     SCAN,
-
-    /** get if in pool */
     IF_IN_POOL,
-
-    /** get if in pool, do not make the block young in the LRU list */
     PEEK_IF_IN_POOL,
-
-    /** get and bufferfix, but set no latch; we have separated this case, because
-    it is error-prone programming not to set a latch, and it  should be used with
-    care */
     NO_LATCH,
-
-    /** Get the page only if it's in the buffer pool, if not then set a watch on
-    the page. */
-    IF_IN_POOL_OR_WATCH,
-
-    /** Like Page_fetch::NORMAL, but do not mind if the file page has been
-    freed. */
-    POSSIBLY_FREED,
-
-    /** Like Page_fetch::POSSIBLY_FREED, but do not initiate read ahead. */
-    POSSIBLY_FREED_NO_READ_AHEAD,
   };
 
 

@@ -29,4 +29,5 @@ add_executable(innobase_lite main.cpp
         storage/innobase/d0_btr/btr0cur.cc
         storage/innobase/c_row/row0sel.h
         storage/innobase/b0_trx/trx0trx.cc
+        storage/innobase/g_log_redo_wal/log0log.cc
 )
