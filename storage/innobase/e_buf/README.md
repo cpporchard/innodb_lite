@@ -37,13 +37,18 @@
 
 ## Concepts
 
-### Chunk, Block, Page 
+### Query Execution Flow
 
-![https://www.leviathan.vip/2018/12/18/InnoDB%E7%9A%84BufferPool%E5%88%86%E6%9E%90/](img_2.png)
+![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img_9.png)
 
 ### Read/Write Path
 
 ![https://docs.netapp.com/us-en/ontap-apps-dbs/mysql/mysql-file-structure.html](img.png)
+
+### Chunk, Block, Page 
+
+![https://www.leviathan.vip/2018/12/18/InnoDB%E7%9A%84BufferPool%E5%88%86%E6%9E%90/](img_2.png)
+
 
 ### Buffer Pool Structure
 
@@ -71,6 +76,4 @@
 
 ![https://www.alibabacloud.com/blog/an-in-depth-analysis-of-buffer-pool-in-innodb_601216?spm=a2c65.11461447.0.0.7748441aH4tpmJ](img_8.png)
 
-### Query Execution Flow
 
-![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img_9.png)
