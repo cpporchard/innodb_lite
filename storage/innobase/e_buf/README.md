@@ -3,15 +3,15 @@
     * [Done](#done)
     * [To Do](#to-do)
   * [Concepts](#concepts)
-    * [Chunk, Block, Page](#chunk-block-page-)
+    * [Query Execution Flow](#query-execution-flow)
     * [Read/Write Path](#readwrite-path)
+    * [Chunk, Block, Page](#chunk-block-page-)
     * [Buffer Pool Structure](#buffer-pool-structure)
     * [LRU](#lru)
     * [Buddy Memory Management](#buddy-memory-management)
     * [Flushing / Checkpointing](#flushing--checkpointing)
     * [Adapting Hash Index](#adapting-hash-index)
     * [Concurrency Control](#concurrency-control)
-    * [Query Execution Flow](#query-execution-flow)
 <!-- TOC -->
 
 ## Resources
