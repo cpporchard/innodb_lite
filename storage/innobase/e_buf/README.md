@@ -28,47 +28,47 @@
 
 ### Query Execution Flow
 
-![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img_9.png)
+![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img/img_9.png)
 
-![https://www.mysqltutorial.org/mysql-administration/mysql-innodb-architecture/](img_12.png)
+![https://www.mysqltutorial.org/mysql-administration/mysql-innodb-architecture/](img/img_12.png)
 
 ### Read/Write Path
 
-![https://docs.netapp.com/us-en/ontap-apps-dbs/mysql/mysql-file-structure.html](img.png)
+![https://docs.netapp.com/us-en/ontap-apps-dbs/mysql/mysql-file-structure.html](img/img.png)
 
 ### Chunk, Block, Page 
 
-![https://liuyangming.tech/06-2019/TablespaceFormatInnoDB.html](img_13.png)
+![https://liuyangming.tech/06-2019/TablespaceFormatInnoDB.html](img/img_13.png)
 
-![https://www.leviathan.vip/2018/12/18/InnoDB%E7%9A%84BufferPool%E5%88%86%E6%9E%90/](img_2.png)
+![https://www.leviathan.vip/2018/12/18/InnoDB%E7%9A%84BufferPool%E5%88%86%E6%9E%90/](img/img_2.png)
 
 
 ### Buffer Pool Structure
 
-![https://dbadiaryy.wordpress.com/2018/01/26/innodb-buffer-pool/](img_3.png)
+![https://dbadiaryy.wordpress.com/2018/01/26/innodb-buffer-pool/](img/img_3.png)
 
 ### LRU
 
-![https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool.html](img_1.png)
+![https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool.html](img/img_1.png)
 
 ### Buddy Memory Management
-![https://blog.naver.com/kseo712/220883220425?viewType=pc](img_6.png)
+![https://blog.naver.com/kseo712/220883220425?viewType=pc](img/img_6.png)
 
 ### Flushing / Checkpointing
-![https://hackmysql.com/book-6/](img_4.png)
+![https://hackmysql.com/book-6/](img/img_4.png)
 
-![https://lefred.be/content/a-graph-a-day-keeps-the-doctor-away-mysql-checkpoint-age/](img_5.png)
+![https://lefred.be/content/a-graph-a-day-keeps-the-doctor-away-mysql-checkpoint-age/](img/img_5.png)
 
-![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img_10.png)
+![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img/img_10.png)
 
 ### Adapting Hash Index
 
-![https://www.alibabacloud.com/blog/mysql-memory-allocation-and-management-part-ii_600992](img_7.png)
+![https://www.alibabacloud.com/blog/mysql-memory-allocation-and-management-part-ii_600992](img/img_7.png)
 
 ### Concurrency Control
 
-![https://www.alibabacloud.com/blog/an-in-depth-analysis-of-buffer-pool-in-innodb_601216?spm=a2c65.11461447.0.0.7748441aH4tpmJ](img_8.png)
+![https://www.alibabacloud.com/blog/an-in-depth-analysis-of-buffer-pool-in-innodb_601216?spm=a2c65.11461447.0.0.7748441aH4tpmJ](img/img_8.png)
 
 ### On Disk Files
 
-![https://medium.com/@nuwanwe/innodb-system-tablespace-a-comprehensive-overview-and-best-practices-f96ee6dd39ab](img_11.png)
+![https://medium.com/@nuwanwe/innodb-system-tablespace-a-comprehensive-overview-and-best-practices-f96ee6dd39ab](img/img_11.png)
