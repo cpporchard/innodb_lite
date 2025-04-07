@@ -31,7 +31,7 @@
 - [ ] https://deepakmysqldba.wordpress.com/2021/05/09/innodb-mysql-8-architecture/
 - [ ] Page Flushing https://hackmysql.com/book-6/
 - [ ] Flushing https://lefred.be/content/a-graph-a-day-keeps-the-doctor-away-mysql-checkpoint-age/
-
+- [ ] Memory Allocation https://www.alibabacloud.com/blog/mysql-memory-allocation-and-management-part-ii_600992
 
 ## Concepts
 
@@ -58,6 +58,10 @@
 ![https://hackmysql.com/book-6/](img_4.png)
 
 ![img_5.png](img_5.png)
+
+### Adapting Hash Index
+
+![https://www.alibabacloud.com/blog/mysql-memory-allocation-and-management-part-ii_600992](img_7.png)
 
 
 
