@@ -9,6 +9,7 @@
     * [LRU](#lru)
     * [Buddy Memory Management](#buddy-memory-management)
     * [Flushing](#flushing)
+    * [Adapting Hash Index](#adapting-hash-index)
 <!-- TOC -->
 
 ## Resources
@@ -63,6 +64,9 @@
 
 ![https://www.alibabacloud.com/blog/mysql-memory-allocation-and-management-part-ii_600992](img_7.png)
 
+### Concurrency Control
+
+![https://www.alibabacloud.com/blog/an-in-depth-analysis-of-buffer-pool-in-innodb_601216?spm=a2c65.11461447.0.0.7748441aH4tpmJ](img_8.png)
 
 
 
