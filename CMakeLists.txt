@@ -3,7 +3,7 @@ project(innobase_mini)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(innobase_lite main.cpp
+add_executable(innobase_lite mysqld.cc
         sql/iterators/basic_row_iterators.cc
         sql/iterators/basic_row_iterators.h
         sql/iterators/row_iterator.h
