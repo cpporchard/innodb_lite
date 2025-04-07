@@ -10,6 +10,7 @@
     * [Buddy Memory Management](#buddy-memory-management)
     * [Flushing](#flushing)
     * [Adapting Hash Index](#adapting-hash-index)
+    * [Concurrency Control](#concurrency-control)
 <!-- TOC -->
 
 ## Resources
@@ -32,6 +33,7 @@
 - [ ] https://deepakmysqldba.wordpress.com/2021/05/09/innodb-mysql-8-architecture/
 - [ ] Page Flushing https://hackmysql.com/book-6/
 - [ ] Flushing https://lefred.be/content/a-graph-a-day-keeps-the-doctor-away-mysql-checkpoint-age/
+- [ ] Flushing https://www.percona.com/blog/innodb-flushing-in-action-for-percona-server-for-mysql/
 - [ ] Memory Allocation https://www.alibabacloud.com/blog/mysql-memory-allocation-and-management-part-ii_600992
 
 ## Concepts
@@ -55,10 +57,12 @@
 ### Buddy Memory Management
 ![https://blog.naver.com/kseo712/220883220425?viewType=pc](img_6.png)
 
-### Flushing
+### Flushing / Checkpointing
 ![https://hackmysql.com/book-6/](img_4.png)
 
-![img_5.png](img_5.png)
+![https://lefred.be/content/a-graph-a-day-keeps-the-doctor-away-mysql-checkpoint-age/](img_5.png)
+
+![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img_10.png)
 
 ### Adapting Hash Index
 
@@ -68,5 +72,6 @@
 
 ![https://www.alibabacloud.com/blog/an-in-depth-analysis-of-buffer-pool-in-innodb_601216?spm=a2c65.11461447.0.0.7748441aH4tpmJ](img_8.png)
 
+### Query Execution Flow
 
-
+![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img_9.png)
