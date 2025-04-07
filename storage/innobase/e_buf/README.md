@@ -3,11 +3,12 @@
     * [Done](#done)
     * [To Do](#to-do)
   * [Concepts](#concepts)
-    * [chunk, block, page structures](#chunk-block-page-structures)
+    * [Chunk, Block, Page](#chunk-block-page-)
     * [Read/Write Path](#readwrite-path)
     * [Buffer Pool Structure](#buffer-pool-structure)
     * [LRU](#lru)
-    * [Core Buffer Pool API's](#core-buffer-pool-apis)
+    * [Buddy Memory Management](#buddy-memory-management)
+    * [Flushing](#flushing)
 <!-- TOC -->
 
 ## Resources
@@ -29,6 +30,8 @@
 - [ ] https://hidetatz.medium.com/how-innodb-writes-data-on-the-disk-1b109a8a8d14
 - [ ] https://deepakmysqldba.wordpress.com/2021/05/09/innodb-mysql-8-architecture/
 - [ ] Page Flushing https://hackmysql.com/book-6/
+- [ ] Flushing https://lefred.be/content/a-graph-a-day-keeps-the-doctor-away-mysql-checkpoint-age/
+
 
 ## Concepts
 
@@ -48,7 +51,14 @@
 
 ![https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool.html](img_1.png)
 
-### Core Buffer Pool API's
+### Buddy Memory Management
+![https://blog.naver.com/kseo712/220883220425?viewType=pc](img_6.png)
+
+### Flushing
+![https://hackmysql.com/book-6/](img_4.png)
+
+![img_5.png](img_5.png)
+
 
 
 
