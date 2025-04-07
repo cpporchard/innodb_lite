@@ -8,9 +8,10 @@
     * [Buffer Pool Structure](#buffer-pool-structure)
     * [LRU](#lru)
     * [Buddy Memory Management](#buddy-memory-management)
-    * [Flushing](#flushing)
+    * [Flushing / Checkpointing](#flushing--checkpointing)
     * [Adapting Hash Index](#adapting-hash-index)
     * [Concurrency Control](#concurrency-control)
+    * [Query Execution Flow](#query-execution-flow)
 <!-- TOC -->
 
 ## Resources
