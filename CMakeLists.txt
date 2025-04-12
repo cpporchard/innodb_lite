@@ -39,7 +39,9 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/e_buf/buf0lru.cc
         storage/innobase/c_row/row0mysql.cc
         storage/innobase/c_row/row0ins.cc
-        storage/innobase/c_row/que0que.h
+        storage/innobase/b2_que_later/que0que.h
         storage/innobase/c_row/row0ins.h
         storage/innobase/c_row/data0data.h
+        sql/sql_base.cc
+        sql/sql_base.h
 )
