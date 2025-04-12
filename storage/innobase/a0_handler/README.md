@@ -14,3 +14,13 @@
 ### Overall Flow
 
 ![https://www.oreilly.com/library/view/understanding-mysql-internals/0596009577/ch01.html](img.png)
+
+
+### DS - MRR
+
+```markdown
+Simple Breakdown:
+- MRR (Multi-Range Read): This is an optimization to read multiple row ranges more efficiently — especially helpful when using non-clustered indexes.
+- Disk-Sweep: Instead of reading rows one by one in index order (which can jump all over the disk), it collects all the row locations first, sorts them, and reads them in disk order — this reduces random disk access and improves performance.
+
+```

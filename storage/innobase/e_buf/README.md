@@ -72,3 +72,32 @@
 ### On Disk Files
 
 ![https://medium.com/@nuwanwe/innodb-system-tablespace-a-comprehensive-overview-and-best-practices-f96ee6dd39ab](img_11.png)
+
+### Read Flow
+```markdown
+buf_page_get_gen()
+    └── Buf_fetch<Buf_fetch_other>::single_page()
+            └── Buf_fetch_other::get(buf_block)
+                    └── Buf_fetch<Buf_fetch_other>::read_page()
+                            └── buf_read_page(page_id)
+                                    └── buf_read_page_low()
+                                            └── buf_page_init_for_read()
+                                                    └── buf_LRU_get_free_block()
+                                                            └── buf_LRU_scan_and_free_block()
+                                                                    └── sync_array_wait_event()
+                                                                            └── os_event::wait_low()
+```
+
+### Write Flow
+```text
+ha_innobase::write_row()
+  └── row_insert_for_mysql()
+      └── row_insert_for_mysql_using_ins_graph()
+          └── row_ins_step()
+              └── row_ins()
+                  └── row_ins_index_entry_step()
+                      └── row_ins_index_entry()
+                          └── row_ins_clust_index_entry()
+                              └── row_ins_clust_index_entry_low()....
+```
+

@@ -14,6 +14,8 @@ public:
 
     ~ha_innobase() override;
 
+    int write_row(uchar *record);
+
 
     // int create(const char *name, TABLE *form, HA_CREATE_INFO *, dd::Table *table_def) override;
     //

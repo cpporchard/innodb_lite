@@ -11,6 +11,27 @@ ha_innobase::~ha_innobase() {
 
 }
 
+/** Stores a row in an InnoDB database, to the table specified in this
+ handle.
+ @return error code */
+
+int ha_innobase::write_row(uchar *record) /*!< in: a row in MySQL format */ {
+    dberr_t error;
+    // trx_t *trx = thd_to_trx(m_user_thd);
+    // TrxInInnoDB trx_in_innodb(trx);
+
+    /* Prepare INSERT graph that will be executed for actual INSERT (This is a one time operation) */
+    // if (m_prebuilt->mysql_template == nullptr || m_prebuilt->template_type != ROW_MYSQL_WHOLE_ROW) {
+    //     /* Build the template used in converting quickly between
+    //     the two database formats */
+    //
+    //     build_template(true);
+    // }
+
+    /* Execute insert graph that will result in actual insert. */
+    // error = row_insert_for_mysql((std::byte *)record, m_prebuilt);
+
+}
 
 int ha_innobase::rnd_init(bool scan) {
     // int err = change_active_index(table_share->primary_key);

@@ -106,6 +106,10 @@ struct Buf_fetch {
 
     bool is_optimistic() const;
 
+    void read_page();
+
+    buf_block_t *lookup();
+
     void mtr_add_page(buf_block_t *block);
 
     buf_block_t *single_page();

@@ -6,8 +6,13 @@
 #include "buf0buf.h"
 #include "../b0_trx/trx0trx.h"
 
-template <typename Mutex>
-void mutex_enter_inline(Mutex *m, ut::Location loc) {}
+bool buf_read_page(const page_id_t &page_id, const page_size_t &page_size);
+buf_block_t *buf_LRU_get_free_block(buf_pool_t *buf_pool);
+
+template<typename Mutex>
+void mutex_enter_inline(Mutex *m, ut::Location loc) {
+}
+
 #define mutex_enter(M) mutex_enter_inline(M, UT_LOCATION_HERE)
 #define mutex_exit(M) (M)
 
@@ -40,22 +45,58 @@ static void buf_wait_for_read(buf_block_t *block) {
     // }
 }
 
-template <typename T>
+template<typename T>
 bool Buf_fetch<T>::is_optimistic() const {
     return (m_mode == Page_fetch::IF_IN_POOL ||
             m_mode == Page_fetch::PEEK_IF_IN_POOL);
 }
 
+template <typename T>
+void Buf_fetch<T>::read_page() {
+    if (buf_read_page(m_page_id, m_page_size)) {
+        /* Avoid doing read-ahead for parallel scans (well, at least currently this
+        flag is used only during the parallel scans). This would cause unnecessary
+        IO when the process is already being parallelized on higher level of
+        abstraction. */
+    }
+
+}
+
+template <typename T>
+buf_block_t *Buf_fetch<T>::lookup() {
+}
+
 dberr_t Buf_fetch_normal::get(buf_block_t *&block) {
+    /*
+        └── Buf_fetch<Buf_fetch_other>::read_page()
+            └── buf_read_page(page_id)
+                    └── buf_read_page_low()
+                            └── buf_page_init_for_read()
+                                    └── buf_LRU_get_free_block()
+                                            └── buf_LRU_scan_and_free_block()
+                                                    └── sync_array_wait_event()
+                                                            └── os_event::wait_low()
+     */
+
     for (;;) {
         // ut_ad(!rw_lock_own(buf_page_hash_lock_get(m_buf_pool, m_page_id), RW_LOCK_S));
+        block = lookup(); // check if it is in the buffer pool
+
+        // if (block != nullptr) {
+        //     if (block->page.was_stale()) {
+        //     }
+        // }
         block = new buf_block_t{};
+
+
+        /* Page not in buf_pool: needs to be read from file */
+        read_page();
         break;
     }
     return 1;
 }
 
-template <typename T>
+template<typename T>
 void Buf_fetch<T>::mtr_add_page(buf_block_t *block) {
     mtr_memo_type_t fix_type;
     mtr_memo_push(m_mtr, block, fix_type);
@@ -107,7 +148,6 @@ buf_block_t *Buf_fetch<T>::single_page() {
 }
 
 
-
 /**
     The first parameter page_id specifies the required page number, and this page_id is usually obtained through the upper B Tree retrieval.
     The third parameter rw_latch specifies the read-write Latch mode to be added to the page.
@@ -130,4 +170,13 @@ buf_block_t *buf_page_get_gen(const page_id_t &page_id,
     fetch.m_dirty_with_no_latch = dirty_with_no_latch;
 
     return fetch.single_page();
+}
+
+buf_page_t *buf_page_init_for_read(ulint mode, const page_id_t &page_id,
+                                   const page_size_t &page_size, bool unzip) {
+    buf_block_t *block;
+    buf_pool_t *buf_pool = buf_pool_get(page_id);
+
+    block = buf_LRU_get_free_block(buf_pool);
+
 }
