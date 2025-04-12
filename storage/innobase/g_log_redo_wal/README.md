@@ -18,7 +18,3 @@
 
 ### Rollback Segment History List
 ![https://aws.amazon.com/blogs/database/achieve-a-high-speed-innodb-purge-on-amazon-rds-for-mysql-and-amazon-aurora-mysql/](img_3.png)
-
-```plantuml
-
-```
