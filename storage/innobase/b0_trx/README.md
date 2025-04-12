@@ -39,11 +39,32 @@
 
 ### tc_log
 
+It is not part of ha_xxx. It is part of xa.cc
 ![https://blog.csdn.net/weixin_35500243/article/details/113277478](img_8.png)
 
 ### trx_sys
 
 ![https://zhuanlan.zhihu.com/p/40208895](img_10.png)
+
+```text
+Central place that maintains all the txn lists.
+However, it doesn't do conflict detection. It is done when row locks are acquired.
+
+
+Why is trx_sys critical?
+- It enables MVCC (Multi-Version Concurrency Control) by managing snapshots and read views
+- It allows the purge thread to clean undo logs only when no active transaction needs them
+- It keeps transactions isolated while coordinating their lifecycle (start, commit, rollback)
+- It supports crash recovery by tracking undo log metadata
+
+
+It acts as the central coordinator for:
+All active transactions
+- Undo logs
+- Purge operations
+- Rollback segments
+- Access to concurrency-related structures
+```
 
 
 
