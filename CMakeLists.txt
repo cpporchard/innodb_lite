@@ -47,6 +47,6 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/c_row/row0upd.h
         storage/innobase/b0_trx/trx0undo.cc
         storage/innobase/b0_trx/trx0undo.h
-        storage/innobase/b4_fsp_later/fsp0fsp.cc
-        storage/innobase/b4_fsp_later/fsp0fsp.h
+        storage/innobase/b3_fsp_later/fsp0fsp.cc
+        storage/innobase/b3_fsp_later/fsp0fsp.h
 )
