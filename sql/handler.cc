@@ -23,3 +23,7 @@ int handler::ha_rnd_next(uchar *buf) {
 
     return result;
 }
+
+int handler::ha_extra(enum ha_extra_function operation) {
+    return extra(operation);
+}

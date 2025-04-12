@@ -24,3 +24,16 @@ Simple Breakdown:
 - Disk-Sweep: Instead of reading rows one by one in index order (which can jump all over the disk), it collects all the row locations first, sorts them, and reads them in disk order — this reduces random disk access and improves performance.
 
 ```
+
+### Open Table Flow
+
+```text
+open_table()
+  └── ha_innobase::extra()
+        └── ha_innobase::update_thd()
+              └── check_trx_exists()
+                    └── innobase_trx_allocate()
+                          └── trx_allocate_for_mysql()
+                                └── PolicyMutex<>
+
+```

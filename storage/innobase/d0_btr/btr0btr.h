@@ -6,8 +6,16 @@
 #include "../e_buf/buf0buf.h"
 #include "../e_buf/buf0buf.h"
 #include "../d0_btr/btr0btr.h"
+/** The info structure stored at the beginning of a heap block */
+struct mem_block_info_t {
+};
 
+/** A block of a memory heap consists of the info structure
+followed by an area of memory */
+typedef struct mem_block_info_t mem_block_t;
 
+/** A memory heap is a nonempty linear list of memory blocks */
+typedef mem_block_t mem_heap_t;
 
 /** Latching modes for btr_cur_search_to_nth_level(). */
 enum btr_latch_mode : size_t {

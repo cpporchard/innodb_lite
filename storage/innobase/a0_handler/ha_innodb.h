@@ -38,6 +38,12 @@ public:
     int rnd_next(uchar *buf) override;
 
     int general_fetch(uchar *buf, uint direction, uint match_mode);
+
+    void update_thd(THD *thd);
+
+    void update_thd();
+
+    int extra(enum ha_extra_function operation);
 };
 
 #endif //HA_INNODB_H

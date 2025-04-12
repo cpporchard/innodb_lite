@@ -12,6 +12,12 @@ struct handlerton {
 typedef unsigned char uchar; /* Short for unsigned char */
 #define thr_lock_type int
 
+
+enum ha_extra_function {
+    HA_EXTRA_FLUSH
+};
+
+
 class handler {
 public:
     TABLE_SHARE *table_share; /* The table definition */
@@ -39,10 +45,17 @@ public:
 
     int ha_rnd_next(uchar *buf);
 
+    int ha_extra(enum ha_extra_function operation);
+
 
     virtual int rnd_init(bool scan) = 0;
 
     virtual int rnd_next(uchar *buf) = 0;
+
+    virtual int extra(enum ha_extra_function operation [[maybe_unused]]) {
+        return 0;
+    }
+
 
     /**
       Start a statement when table is locked

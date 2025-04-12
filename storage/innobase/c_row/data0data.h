@@ -32,4 +32,9 @@ struct dtuple_t {
     // UT_LIST_NODE_T(dtuple_t) tuple_list;
 };
 
+/** Storage format for overflow data in a big record, that is, a
+clustered index record which needs external storage of data fields */
+struct big_rec_t {
+};
+
 #endif //DATA0DATA_H
