@@ -15,3 +15,10 @@
 
 ### Redo Log Buffer
 ![https://www.mydbops.com/blog/dynamic-innodb-redo-log-resize-mysql-8-0-30](img_2.png)
+
+### Rollback Segment History List
+![https://aws.amazon.com/blogs/database/achieve-a-high-speed-innodb-purge-on-amazon-rds-for-mysql-and-amazon-aurora-mysql/](img_3.png)
+
+```plantuml
+
+```
