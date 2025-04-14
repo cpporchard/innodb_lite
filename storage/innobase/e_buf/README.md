@@ -26,6 +26,8 @@
 
 ## Concepts
 
+> Buffer Pool allocates memory in Chunks. Chunk has multiple blocks. Block has multiple pages.
+
 ### Query Execution Flow
 
 ![https://topic.it168.com/factory/DTCC2013/doc/a30.pdf](img_9.png)

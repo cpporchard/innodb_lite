@@ -6,6 +6,8 @@
 #define FSP0FSP_H
 #include <cstddef>
 #include <cstdint>
+// Full form of FSP is File Space. It could be Table Space or something other XXX Space.
+
 
 /** @name File segment header
 The file segment header points to the inode describing the file segment. */

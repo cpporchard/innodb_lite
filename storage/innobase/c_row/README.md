@@ -246,7 +246,8 @@ deactivate DoubleWriteBuffer
 
 ![gpt](img.png)
 
-### Questions about MVCC ang Page Split.
 
+### Cursor <--> Row
 
+![https://speakerdeck.com/xy/innodb-internals?slide=6](img_1.png)
 
