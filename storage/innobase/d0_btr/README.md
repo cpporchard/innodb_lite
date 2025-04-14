@@ -3,7 +3,14 @@
 ### Todo
 -  [ ] https://www.percona.com/blog/innodb-page-merging-and-page-splitting/
 -  [ ] http://mysql.taobao.org/monthly/2019/10/01/
-- 
+-  [ ] https://draven.co/whys-the-design-mysql-b-plus-tree/
+-  [ ] https://zhuanlan.zhihu.com/p/164705538 [Important 1. Check reference list aswell]
+-  [ ] https://zhuanlan.zhihu.com/p/164728032 [Important 1] 
+-  [ ] https://www.zhihu.com/column/c_1271447104075182080 [Important]
+-  [ ] https://www.jianshu.com/p/5248ca67eac2 [Important]
+-  [ ] https://www.jianshu.com/p/0cdd573a8232
+
+
 
 ## Concepts
 
@@ -150,3 +157,44 @@ InnoDB does not attempt to preserve the old physical page layout for older trans
 ### BTree Page
 
 ![https://stackoverflow.com/questions/4307464/how-are-internal-nodes-in-a-innodb-b-tree-physically-stored](img_5.png)
+
+### BTree Write
+
+![https://zhuanlan.zhihu.com/p/164705538](img_6.png)
+
+
+```text
+Ref: https://www.jianshu.com/p/5248ca67eac2
+
+
+Sql_cmd_insert::mysql_insert
+ >Sql_cmd_insert::mysql_insert
+    >切换session状态为 update
+    >进入插入逻辑
+    >handler::ha_write_row
+     >ha_innobase::write_row
+      >row_insert_for_mysql
+            >row_insert_for_mysql_using_ins_graph 
+             >trx_start_if_not_started_xa_low 
+               >trx_start_low                                       激活事物，事物状态由 not_active 变为 active
+             >row_ins_step
+               >row_ins
+                >row_ins_index_entry_step
+                 >row_ins_index_entry
+                  >row_ins_clust_index_entry
+                            >row_ins_clust_index_entry_low 
+                              >btr_cur_search_to_nth_level                   查找定位数据
+                               >btr_cur_optimistic_insert                    进行乐观插入
+                                 >btr_cur_ins_lock_and_undo 
+                                  >trx_undo_report_row_operation 
+                                    >trx_undo_page_report_insert               记录insert的undo记录
+                                     >trx_undo_page_set_next_prev_and_add
+                                      >trx_undof_page_add_undo_rec_log         记录undo的redo log 入redo buffer
+                                 >page_cur_tuple_insert                      进行insert 元组插入，及实际的插入操作
+                                  >page_cur_insert_rec_write_log             记录插入的redo log 入redo buffer                  
+       >binlog_log_row    
+        >write_locked_table_maps 
+         >THD::binlog_write_table_map
+          >binlog_start_trans_and_stmt
+           >binlog_cache_data::write_event                        binlog event 写入到 binlog cache 
+```

@@ -100,8 +100,12 @@ buf_page_get_gen()
 #### Adaptive Hash Index (Reads)
 Cache frequently accessed values. AHI doesn't cover the entire index, just the frequently accessed values. 
 
+#### Adaptive Flushing (Writes)
+Flushes pages from the buffer pool to disk in a way that optimizes performance. It uses a combination of LRU and FIFO algorithms to determine which pages to flush.
+
 
 #### Change Buffer (Writes)
 
 Caches changes to secondary index pages when they are not in the buffer pool. Merged later when pages are loaded into
 Buffer pool by other read operations.
+
