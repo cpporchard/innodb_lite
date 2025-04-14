@@ -90,3 +90,18 @@ buf_page_get_gen()
                                                                             └── os_event::wait_low()
 ```
 
+### Read Ahead
+
+![img_14.png](img_14.png)
+
+
+###  Index IO Optimization
+
+#### Adaptive Hash Index (Reads)
+Cache frequently accessed values. AHI doesn't cover the entire index, just the frequently accessed values. 
+
+
+#### Change Buffer (Writes)
+
+Caches changes to secondary index pages when they are not in the buffer pool. Merged later when pages are loaded into
+Buffer pool by other read operations.

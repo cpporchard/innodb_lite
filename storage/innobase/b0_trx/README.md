@@ -144,3 +144,112 @@ struct trx_rseg_t {
 };
 
 ```
+
+### Logs
+
+#### Undo Logs
+
+![img_13.png](img_13.png)
+
+![img_14.png](img_14.png)
+
+```text
+[UNDO Segment]
+└── [Undo Header (trx_undo_t)]
+    ├── trx_id            -- ID of transaction creating this undo log
+    ├── type              -- INSERT / UPDATE / DELETE
+    ├── undo_no           -- Log sequence number
+    └── [Undo Records List]
+         ↓
+         ┌──────────────────────────────────────┐
+         │ Undo Record (e.g., for UPDATE)       │
+         ├──────────────────────────────────────┤
+         │ page_no    : 5001                    │ ← where original row resides
+         │ index_id   : 42                      │ ← cluster index ID
+         │ offset     : 132                     │ ← row offset in page
+         │ old_values : { col1: 100, col2: "A" }│ ← before image
+         │ trx_id     : 12345                   │ ← who changed it
+         └──────────────────────────────────────┘
+         ↓
+         ┌──────────────────────────────────────┐
+         │ Undo Record (for INSERT)            │
+         ├──────────────────────────────────────┤
+         │ page_no    : 5003                    │
+         │ index_id   : 42                      │
+         │ offset     : 190                     │
+         │ trx_id     : 12345                   │
+         │ delete_on_rollback = true           │
+         └──────────────────────────────────────┘
+
+```
+
+```text
+[Transaction Begin]
+     ↓
+ Create trx_undo_t
+     ↓
+ Perform INSERT → Insert Undo log entry (rollback only)
+     ↓
+ Perform UPDATE → Update Undo log entry (rollback + MVCC)
+     ↓
+ Commit
+     ↓
+ Discard INSERT undo
+ Wait for MVCC readers to finish
+     ↓
+ Discard UPDATE undo
+
+```
+
+![img_15.png](img_15.png)
+
+> Why INSERT UNDO log is not required for MVCC?
+
+![img_16.png](img_16.png)
+
+![img_17.png](img_17.png)
+
+![img_18.png](img_18.png)
+
+
+
+#### Redo Logs
+
+![img_19.png](img_19.png)
+
+> What is ib prefix?
+
+![img_20.png](img_20.png)
+
+
+![img_21.png](img_21.png)
+
+#### Redo Log + Double Write Buffer
+
+![img_22.png](img_22.png)
+
+![img_23.png](img_23.png)
+
+![img_24.png](img_24.png)
+
+![img_25.png](img_25.png)
+
+![img_26.png](img_26.png)
+
+#### What is LSN?
+
+![img_27.png](img_27.png)
+
+![img_28.png](img_28.png)
+
+![img_29.png](img_29.png)
+
+![img_30.png](img_30.png)
+
+![img_31.png](img_31.png)
+
+![img_32.png](img_32.png)
+
+
+
+
