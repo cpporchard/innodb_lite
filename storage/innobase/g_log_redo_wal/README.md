@@ -18,3 +18,15 @@
 
 ### Rollback Segment History List
 ![https://aws.amazon.com/blogs/database/achieve-a-high-speed-innodb-purge-on-amazon-rds-for-mysql-and-amazon-aurora-mysql/](img_3.png)
+
+
+### During recovery, how is a page restored.
+
+```text
+Old State ----> [REDO] ----> New State
+        \      
+         \----> Log Record
+
+```
+
+![img_4.png](img_4.png)
