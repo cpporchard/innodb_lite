@@ -251,5 +251,99 @@ struct trx_rseg_t {
 ![img_32.png](img_32.png)
 
 
+### HLL
 
+> How InnoDB uses Undo Logs, History List, and MVCC for consistent reads and rollback using the High-level Layout (HLL) and Purge mechanisms.
+
+![img_33.png](img_33.png)
+
+![img_34.png](img_34.png)
+
+![img_35.png](img_35.png)
+
+```text
+                        History List (HLL)
+  ┌────┬────┬────┬────┬────┬──────┬──────┬────────┐
+  │ T1 │ T2 │ T3 │ T4 │ T5 │ T1000│T10000│ T3000  │
+  └────┴────┴────┴────┴────┴──────┴──────┴────────┘
+
+Undo Record Chains for a Row:
+
+              +-----------------------------+
+              |        Row (current)        |
+              | trx_id = 3000, id=1, a='Y'  |
+              +-------------+---------------+
+                            |
+                +-----------v------------------+
+                | Undo Update trx_id=1000      |
+                | id=1, a='Z'                  |
+                +-----------+------------------+
+                            |
+                +-----------v------------------+
+                | Undo Update trx_id=2         |
+                | id=1, a='B'                  |
+                +-----------+------------------+
+                            |
+                +-----------v------------------+
+                | Undo Update trx_id=1         |
+                | id=1, a='A'                  |
+                +-----------+------------------+
+                            |
+                +-----------v------------------+
+                | Undo Insert trx_id=1         |
+                | id=1, a=NULL (initial state) |
+                +------------------------------+
+
+Reader’s View:
+- If reader txn < 2, it will walk back undo chain to read ‘A’ or NULL.
+- Each row has a rollback pointer → to undo record.
+
+Notes:
+- Each write = 1 undo log entry.
+- Purge cleans up when no active txn needs older versions.
+- Undo logs can be in buffer pool or disk.
+
+```
+
+
+### When does TXN ack to client?
+
+```plantuml
+
+@startuml
+title InnoDB Write Path 
+
+actor client
+participant mysqld
+participant "MTR (Mini-Transaction)" as mtr
+participant "BTree Page" as btr
+participant "Buffer Pool" as buf_pool
+participant "Redo Log" as redo
+participant disk
+
+client -> mysqld : write command (e.g. INSERT)
+
+mysqld -> mtr : begin_mtr()
+
+alt page not in buffer pool
+  mtr -> buf_pool : request page
+  buf_pool -> disk : fetch page from disk
+  disk --> buf_pool : return page
+end
+
+mtr -> btr : modify B-tree page
+btr -> buf_pool : write page to memory
+
+mtr -> redo : log changes (redo log)
+redo -> disk : persist redo log
+
+mtr -> mysqld : commit_mtr()
+mysqld -> client : ACK
+
+... later (checkpoint) ...
+buf_pool -> disk : flush dirty pages to disk (checkpoint)
+
+@enduml
+
+```
 
