@@ -59,4 +59,6 @@ add_executable(innobase_lite mysqld.cc
         sql/table.cc
         sql/sql_plugin_ref.h
         sql/sql_plugin_ref.cc
+        sql/transaction_info.cc
+        sql/transaction_info.h
 )
