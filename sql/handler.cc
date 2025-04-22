@@ -27,3 +27,7 @@ int handler::ha_rnd_next(uchar *buf) {
 int handler::ha_extra(enum ha_extra_function operation) {
     return extra(operation);
 }
+
+int ha_commit_low(THD *thd, bool all, bool run_after_commit) {
+}
+int ha_rollback_low(THD *thd, bool all) {}

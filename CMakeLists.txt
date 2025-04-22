@@ -51,4 +51,12 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/b3_fsp_later/fsp0fsp.h
         storage/innobase/a2_dict_later/dict.h
         storage/innobase/a2_dict_later/dict0mem.h
+        sql/tc_log.h
+        sql/tc_log.cc
+        sql/transaction.h
+        sql/transaction.cc
+        sql/xa.h
+        sql/table.cc
+        sql/sql_plugin_ref.h
+        sql/sql_plugin_ref.cc
 )

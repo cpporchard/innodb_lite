@@ -1,12 +1,18 @@
 #ifndef HANDLER_INCLUDED
 #define HANDLER_INCLUDED
 #include "table.h"
+#include "xa.h"
 
+struct handlerton;
 struct TABLE_SHARE;
 struct TABLE;
 struct THD;
+typedef struct xid_t XID;
+
+typedef xa_status_code (*commit_by_xid_t)(handlerton *hton, XID *xid);
 
 struct handlerton {
+    commit_by_xid_t commit_by_xid;
 };
 
 typedef unsigned char uchar; /* Short for unsigned char */
