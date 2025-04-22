@@ -8,8 +8,8 @@ add_executable(innobase_lite mysqld.cc
         sql/iterators/basic_row_iterators.h
         sql/iterators/row_iterator.h
         sql/table.h
-        sql/handler.h
-        sql/handler.cc
+        sql/b_handler.h
+        sql/b_handler.cc
         storage/innobase/a0_handler/ha_innodb.cc
         storage/innobase/a0_handler/ha_innodb.h
         storage/innobase/c_row/row0sel.cc
@@ -51,14 +51,14 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/b3_fsp_later/fsp0fsp.h
         storage/innobase/a2_dict_later/dict.h
         storage/innobase/a2_dict_later/dict0mem.h
-        sql/tc_log.h
-        sql/tc_log.cc
-        sql/transaction.h
-        sql/transaction.cc
+        sql/c_tc_log.h
+        sql/c_tc_log.cc
+        sql/a_transaction.h
+        sql/a_transaction.cc
         sql/xa.h
         sql/table.cc
         sql/sql_plugin_ref.h
         sql/sql_plugin_ref.cc
-        sql/transaction_info.cc
-        sql/transaction_info.h
+        sql/a_transaction_info.cc
+        sql/a_transaction_info.h
 )

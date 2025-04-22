@@ -1,6 +1,6 @@
 
 #include "table.h"
-#include "handler.h"
+#include "b_handler.h"
 
 int ha_commit_trans(THD *thd, bool all, bool ignore_global_read_lock = false);
 

@@ -1,14 +1,14 @@
 #ifndef HA_INNODB_H
 #define HA_INNODB_H
 #include <sys/types.h>
-#include "../../../sql/handler.h"
+#include "../../../sql/b_handler.h"
 
 
 struct TABLE;
 struct handlerton;
 struct TABLE_SHARE;
 
-class ha_innobase : public handler {
+class ha_innobase : public b_handler {
 public:
     ha_innobase(handlerton *hton, TABLE_SHARE *table_arg);
 

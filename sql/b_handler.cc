@@ -1,16 +1,16 @@
-#include "handler.h"
+#include "b_handler.h"
 
-#include "tc_log.h"
+#include "c_tc_log.h"
 
 
 #define MYSQL_TABLE_IO_WAIT(OP, INDEX, RESULT, PAYLOAD) PAYLOAD
 
 
-int handler::ha_rnd_init(bool scan) {
+int b_handler::ha_rnd_init(bool scan) {
     return rnd_init(scan);
 }
 
-int handler::ha_rnd_next(uchar *buf) {
+int b_handler::ha_rnd_next(uchar *buf) {
     int result;
     result = rnd_next(buf);
 
@@ -26,7 +26,7 @@ int handler::ha_rnd_next(uchar *buf) {
     return result;
 }
 
-int handler::ha_extra(enum ha_extra_function operation) {
+int b_handler::ha_extra(enum ha_extra_function operation) {
     return extra(operation);
 }
 

@@ -2,19 +2,19 @@
 #define TABLE_INCLUDED
 #include <memory>
 
-#include "handler.h"
+#include "b_handler.h"
 #include "xa.h"
-#include "transaction_info.h"
+#include "a_transaction_info.h"
 #include "iterators/basic_row_iterators.h"
 
 
-class handler;
+class b_handler;
 
 struct TABLE_SHARE {
 };
 
 struct TABLE {
-    handler *file{nullptr};
+    b_handler *file{nullptr};
     uchar * record;
 };
 

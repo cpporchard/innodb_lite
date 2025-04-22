@@ -1,4 +1,4 @@
-#include "tc_log.h"
+#include "c_tc_log.h"
 
 #include "sql_plugin_ref.h"
 #include "table.h"

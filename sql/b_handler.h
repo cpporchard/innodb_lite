@@ -25,20 +25,20 @@ enum ha_extra_function {
 };
 
 
-class handler {
+class b_handler {
 public:
     TABLE_SHARE *table_share; /* The table definition */
     TABLE *table; /* The current open table */
     handlerton *ht; /* storage engine of this handler */
 
 
-    handler(handlerton *ht_arg, TABLE_SHARE *share_arg)
+    b_handler(handlerton *ht_arg, TABLE_SHARE *share_arg)
         : table_share(share_arg),
           table(nullptr),
           ht(ht_arg) {
     }
 
-    virtual ~handler(void) {
+    virtual ~b_handler(void) {
     }
 
 
