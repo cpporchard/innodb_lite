@@ -19,10 +19,10 @@ struct TABLE {
 };
 
 
-struct THD {
+class THD {
+public:
     int killed{0};
     std::unique_ptr<Transaction_ctx> m_transaction;
-public:
     Transaction_ctx *get_transaction() { return m_transaction.get(); }
 };
 
