@@ -4,12 +4,12 @@ project(innobase_mini)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(innobase_lite mysqld.cc
-        sql/iterators/basic_row_iterators.cc
-        sql/iterators/basic_row_iterators.h
-        sql/iterators/row_iterator.h
-        sql/table.h
-        sql/b_handler.h
-        sql/b_handler.cc
+        sql/sql_io/iterators/basic_row_iterators.cc
+        sql/sql_io/iterators/basic_row_iterators.h
+        sql/sql_io/iterators/row_iterator.h
+        sql/sql_io/table.h
+        sql/sql_trx/b_handler.h
+        sql/sql_trx/b_handler.cc
         storage/innobase/a0_handler/ha_innodb.cc
         storage/innobase/a0_handler/ha_innodb.h
         storage/innobase/c_row/row0sel.cc
@@ -42,8 +42,8 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/b2_que_later/que0que.h
         storage/innobase/c_row/row0ins.h
         storage/innobase/c_row/data0data.h
-        sql/sql_base.cc
-        sql/sql_base.h
+        sql/sql_io/sql_base.cc
+        sql/sql_io/sql_base.h
         storage/innobase/c_row/row0upd.h
         storage/innobase/b0_trx/trx0undo.cc
         storage/innobase/b0_trx/trx0undo.h
@@ -51,14 +51,14 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/b3_fsp_later/fsp0fsp.h
         storage/innobase/a2_dict_later/dict.h
         storage/innobase/a2_dict_later/dict0mem.h
-        sql/c_tc_log.h
-        sql/c_tc_log.cc
-        sql/a_transaction.h
-        sql/a_transaction.cc
+        sql/sql_trx/c_tc_log.h
+        sql/sql_trx/c_tc_log.cc
+        sql/sql_trx/a_transaction.h
+        sql/sql_trx/a_transaction.cc
         sql/xa.h
-        sql/table.cc
-        sql/d_sql_plugin_ref.h
-        sql/d_sql_plugin_ref.cc
-        sql/a_transaction_info.cc
-        sql/a_transaction_info.h
+        sql/sql_io/table.cc
+        sql/sql_trx/d_sql_plugin_ref.h
+        sql/sql_trx/d_sql_plugin_ref.cc
+        sql/sql_trx/a_transaction_info.cc
+        sql/sql_trx/a_transaction_info.h
 )
