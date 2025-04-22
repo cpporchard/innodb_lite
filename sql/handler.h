@@ -9,6 +9,7 @@ struct TABLE;
 struct THD;
 typedef struct xid_t XID;
 
+
 typedef xa_status_code (*commit_by_xid_t)(handlerton *hton, XID *xid);
 
 struct handlerton {
@@ -73,6 +74,8 @@ public:
                            thr_lock_type lock_type [[maybe_unused]]) {
         return 0;
     }
+
+    int ha_commit_trans(THD *thd, bool all, bool ignore_global_read_lock = false);
 };
 
 #endif

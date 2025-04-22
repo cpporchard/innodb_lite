@@ -4,6 +4,9 @@
 #include "table.h"
 
 
+TC_LOG* tc_log = nullptr;
+TC_LOG* tc_log_dummy = nullptr;
+
 int ha_commit_low(THD *thd, bool all, bool run_after_commit);
 
 int ha_rollback_low(THD *thd, bool all);

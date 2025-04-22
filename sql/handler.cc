@@ -1,5 +1,7 @@
 #include "handler.h"
 
+#include "tc_log.h"
+
 
 #define MYSQL_TABLE_IO_WAIT(OP, INDEX, RESULT, PAYLOAD) PAYLOAD
 
@@ -31,3 +33,31 @@ int handler::ha_extra(enum ha_extra_function operation) {
 int ha_commit_low(THD *thd, bool all, bool run_after_commit) {
 }
 int ha_rollback_low(THD *thd, bool all) {}
+
+int ha_rollback_trans(THD *thd, bool all) {
+    int error = 0;
+}
+
+int ha_commit_trans(THD *thd, bool all, bool ignore_global_read_lock) {
+    int error = 0;
+    Transaction_ctx *trn_ctx = thd->get_transaction();
+    Transaction_ctx::enum_trx_scope trx_scope = all ? Transaction_ctx::SESSION : Transaction_ctx::STMT;
+
+    auto ha_info = trn_ctx->ha_trx_info(trx_scope);
+    XID_STATE *xid_state = trn_ctx->xid_state();
+
+    error = tc_log->prepare(thd, all);
+
+    if (!error) {
+        error = tc_log->commit(thd, all);
+    }
+
+    if (error) {
+        ha_rollback_trans(thd, all);
+        return 1;
+    }
+    trn_ctx->cleanup(); // free transaction resources
+    return 0;
+}
+
+

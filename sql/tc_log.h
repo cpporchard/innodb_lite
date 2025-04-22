@@ -41,25 +41,30 @@ public:
     int prepare(THD *thd, bool all) override;
 };
 
-class TC_LOG_MMAP : public TC_LOG {
-public:  // only to keep Sun Forte on sol9x86 happy
-    typedef enum {
-        PS_POOL,   // page is in pool
-        PS_ERROR,  // last sync failed
-        PS_DIRTY   // new xids added since last sync
-      } PAGE_STATE;
-    uint npages, inited;
-public:
-    TC_LOG_MMAP() : inited(0) {}
-    int open(const char *opt_name) override;
-    void close() override;
-    enum_result commit(THD *thd, bool all) override;
-    int rollback(THD *thd, bool all) override;
-    int prepare(THD *thd, bool all) override;
-    int recover();
-    uint size() const;
-};
+// class TC_LOG_MMAP : public TC_LOG {
+// public:  // only to keep Sun Forte on sol9x86 happy
+//     typedef enum {
+//         PS_POOL,   // page is in pool
+//         PS_ERROR,  // last sync failed
+//         PS_DIRTY   // new xids added since last sync
+//       } PAGE_STATE;
+//     uint npages, inited;
+// public:
+//     TC_LOG_MMAP() : inited(0) {}
+//     int open(const char *opt_name) override;
+//     void close() override;
+//     enum_result commit(THD *thd, bool all) override;
+//     int rollback(THD *thd, bool all) override;
+//     int prepare(THD *thd, bool all) override;
+//     int recover();
+//     uint size() const;
+// };
 
-extern TC_LOG *tc_log;
-extern TC_LOG_MMAP tc_log_mmap;
-extern TC_LOG_DUMMY tc_log_dummy;
+
+// TC_LOG *tc_log;
+// TC_LOG_DUMMY tc_log_dummy;
+
+extern TC_LOG* tc_log;
+extern TC_LOG* tc_log_dummy;
+
+// TC_LOG_MMAP tc_log_mmap;
