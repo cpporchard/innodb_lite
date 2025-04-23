@@ -1,7 +1,7 @@
 #ifndef HA_INNODB_H
 #define HA_INNODB_H
 #include <sys/types.h>
-#include "../../../sql/sql_trx/b_handler.h"
+#include "../../../sql/sql_exec/sql_trx/b_handler.h"
 
 
 struct TABLE;

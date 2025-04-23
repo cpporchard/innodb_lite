@@ -1,6 +1,6 @@
 #ifndef HANDLER_INCLUDED
 #define HANDLER_INCLUDED
-#include "../sql_io/table.h"
+#include "../../sql_io/table.h"
 #include "a0_xa.h"
 
 struct handlerton;
