@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <mutex>
+#include <atomic>
 
 #include "../f_page/page0cur.h"
 #include "../d2_mtr_later/mtr0mtr.h"
