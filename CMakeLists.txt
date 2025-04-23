@@ -53,13 +53,16 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/a2_dict_later/dict0mem.h
         sql/sql_trx/c_tc_log.h
         sql/sql_trx/c_tc_log.cc
-        sql/sql_trx/a_transaction.h
-        sql/sql_trx/a_transaction.cc
-        sql/xa.h
+        sql/sql_trx/a0_transaction.h
+        sql/sql_trx/a0_transaction.cc
+        sql/sql_trx/a0_xa.h
         sql/sql_io/table.cc
         sql/sql_trx/d_sql_plugin_ref.h
         sql/sql_trx/d_sql_plugin_ref.cc
-        sql/sql_trx/a_transaction_info.cc
-        sql/sql_trx/a_transaction_info.h
+        sql/sql_trx/a9_transaction_info.cc
+        sql/sql_trx/a9_transaction_info.h
         sql/my_alloc.h
+        sql/sql_trx/xa/sql_xa_commit.h
+        sql/sql_trx/xa/sql_xa_commit.cc
+        sql/sql_cmd.h
 )

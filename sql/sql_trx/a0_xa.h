@@ -6,7 +6,7 @@
 #define XA_H
 
 // #include "sql_io/table.h"
-#include "my_alloc.h"
+#include "../my_alloc.h"
 
 class THD;
 
