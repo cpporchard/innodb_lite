@@ -31,11 +31,15 @@ int b_handler::ha_extra(enum ha_extra_function operation) {
 }
 
 int ha_commit_low(THD *thd, bool all, bool run_after_commit) {
+    return 0;
 }
-int ha_rollback_low(THD *thd, bool all) {}
+int ha_rollback_low(THD *thd, bool all) {
+    return 0;
+}
 
 int ha_rollback_trans(THD *thd, bool all) {
     int error = 0;
+    return 0;
 }
 
 int ha_commit_trans(THD *thd, bool all, bool ignore_global_read_lock) {

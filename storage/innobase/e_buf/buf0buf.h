@@ -10,8 +10,6 @@
 
 using BPageMutex = std::mutex;
 
-enum buf_io_fix : uint8_t; // forward declare
-
 //----------------------Page ID----------------------//
 typedef uint32_t space_id_t; /** Tablespace identifier */
 typedef uint32_t page_no_t; /** Page number */
