@@ -31,6 +31,7 @@ int ha_innobase::write_row(uchar *record) /*!< in: a row in MySQL format */ {
 
     /* Execute insert graph that will result in actual insert. */
     // error = row_insert_for_mysql((std::byte *)record, m_prebuilt);
+    return 0;
 }
 
 int ha_innobase::rnd_init(bool scan) {
@@ -70,6 +71,9 @@ int ha_innobase::general_fetch(
     // ut_ad(innodb_session != nullptr);
     //
     // return (innodb_session->m_trx);
+    static trx_t dummy_trx;           // stays alive across calls
+    static trx_t *trx_ptr = &dummy_trx;
+    return trx_ptr;
 }
 
 /** Allocates an InnoDB transaction for a MySQL handler object for DML.
@@ -91,6 +95,7 @@ trx_t *check_trx_exists(THD *thd) /*!< in: user thread handle */ {
     if (trx == nullptr) {
         trx = innobase_trx_allocate(thd);
     }
+    return trx;
 }
 
 
