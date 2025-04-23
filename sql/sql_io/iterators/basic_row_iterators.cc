@@ -2,7 +2,6 @@
 #include <string>
 
 using std::string;
-using std::vector;
 
 #define ha_rows unsigned long long
 #define HA_ERR_RECORD_DELETED 1
