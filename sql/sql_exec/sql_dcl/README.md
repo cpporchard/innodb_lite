@@ -1,0 +1,5 @@
+## Concepts
+
+### Commands
+
+GRAND, REVOKE
