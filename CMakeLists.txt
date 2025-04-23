@@ -59,10 +59,10 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_io/table.cc
         sql/sql_trx/d_sql_plugin_ref.h
         sql/sql_trx/d_sql_plugin_ref.cc
-        sql/sql_trx/a9_transaction_info.cc
-        sql/sql_trx/a9_transaction_info.h
+        sql/sql_trx/z_transaction_info.cc
+        sql/sql_trx/z_transaction_info.h
         sql/my_alloc.h
         sql/sql_trx/xa/sql_xa_commit.h
         sql/sql_trx/xa/sql_xa_commit.cc
-        sql/sql_cmd.h
+        sql/sql_trx/a0_sql_cmd.h
 )

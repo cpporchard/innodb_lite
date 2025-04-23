@@ -4,7 +4,7 @@
 
 #include "../sql_trx/b_handler.h"
 #include "../sql_trx/a0_xa.h"
-#include "../sql_trx/a9_transaction_info.h"
+#include "../sql_trx/z_transaction_info.h"
 #include "iterators/basic_row_iterators.h"
 
 
