@@ -61,4 +61,5 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_trx/d_sql_plugin_ref.cc
         sql/sql_trx/a_transaction_info.cc
         sql/sql_trx/a_transaction_info.h
+        sql/my_alloc.h
 )
