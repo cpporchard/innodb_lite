@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "sql/table.h"
-#include "sql/iterators/basic_row_iterators.h"
+#include "sql/sql_io/table.h"
+#include "sql/sql_io/iterators/basic_row_iterators.h"
 #include "storage/innobase/a0_handler/ha_innodb.h"
 
 

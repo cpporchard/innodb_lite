@@ -1,7 +1,7 @@
 #include "c_tc_log.h"
 
 #include "d_sql_plugin_ref.h"
-#include "table.h"
+#include "../sql_io/table.h"
 
 
 TC_LOG* tc_log = nullptr;

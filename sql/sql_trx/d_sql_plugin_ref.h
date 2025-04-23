@@ -6,7 +6,7 @@
 #define SQL_PLUGIN_REF_H
 #include <sys/types.h>
 
-#include "table.h"
+#include "../sql_io/table.h"
 
 struct st_plugin_int {
     void *data{nullptr};           /* plugin type specific, e.g. handlerton */

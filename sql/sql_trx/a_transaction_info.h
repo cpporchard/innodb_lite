@@ -1,5 +1,5 @@
 #pragma once
-#include "xa.h"
+#include "../xa.h"
 
 class Ha_trx_info_list {
 };

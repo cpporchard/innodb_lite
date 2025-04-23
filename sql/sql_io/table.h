@@ -2,9 +2,9 @@
 #define TABLE_INCLUDED
 #include <memory>
 
-#include "b_handler.h"
-#include "xa.h"
-#include "a_transaction_info.h"
+#include "../sql_trx/b_handler.h"
+#include "../xa.h"
+#include "../sql_trx/a_transaction_info.h"
 #include "iterators/basic_row_iterators.h"
 
 

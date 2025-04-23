@@ -2,7 +2,7 @@
 
 #include <sys/types.h>
 
-#include "table.h"
+#include "../sql_io/table.h"
 //
 // Created by Arjun Sunil Kumar on 4/22/25.
 //
