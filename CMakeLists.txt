@@ -8,8 +8,8 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_io/iterators/basic_row_iterators.h
         sql/sql_io/iterators/row_iterator.h
         sql/sql_io/table.h
-        sql/sql_exec/sql_trx/b_handler.h
-        sql/sql_exec/sql_trx/b_handler.cc
+        sql/sql_exec/sql_tcl/b_handler.h
+        sql/sql_exec/sql_tcl/b_handler.cc
         storage/innobase/a0_handler/ha_innodb.cc
         storage/innobase/a0_handler/ha_innodb.h
         storage/innobase/c_row/row0sel.cc
@@ -51,18 +51,18 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/b3_fsp_later/fsp0fsp.h
         storage/innobase/a2_dict_later/dict.h
         storage/innobase/a2_dict_later/dict0mem.h
-        sql/sql_exec/sql_trx/c_tc_log.h
-        sql/sql_exec/sql_trx/c_tc_log.cc
-        sql/sql_exec/sql_trx/a0_transaction.h
-        sql/sql_exec/sql_trx/a0_transaction.cc
-        sql/sql_exec/sql_trx/a0_xa.h
+        sql/sql_exec/sql_tcl/c_tc_log.h
+        sql/sql_exec/sql_tcl/c_tc_log.cc
+        sql/sql_exec/sql_tcl/a0_transaction.h
+        sql/sql_exec/sql_tcl/a0_transaction.cc
+        sql/sql_exec/sql_tcl/a0_xa.h
         sql/sql_io/table.cc
-        sql/sql_exec/sql_trx/d_sql_plugin_ref.h
-        sql/sql_exec/sql_trx/d_sql_plugin_ref.cc
-        sql/sql_exec/sql_trx/z_transaction_info.cc
-        sql/sql_exec/sql_trx/z_transaction_info.h
+        sql/sql_exec/sql_tcl/d_sql_plugin_ref.h
+        sql/sql_exec/sql_tcl/d_sql_plugin_ref.cc
+        sql/sql_exec/sql_tcl/z_transaction_info.cc
+        sql/sql_exec/sql_tcl/z_transaction_info.h
         sql/my_alloc.h
-        sql/sql_exec/sql_trx/xa/sql_xa_commit.h
-        sql/sql_exec/sql_trx/xa/sql_xa_commit.cc
+        sql/sql_exec/sql_tcl/xa/sql_xa_commit.h
+        sql/sql_exec/sql_tcl/xa/sql_xa_commit.cc
         sql/sql_exec/a0_sql_cmd.h
 )
