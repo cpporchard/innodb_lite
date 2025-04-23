@@ -64,5 +64,5 @@ add_executable(innobase_lite mysqld.cc
         sql/my_alloc.h
         sql/sql_trx/xa/sql_xa_commit.h
         sql/sql_trx/xa/sql_xa_commit.cc
-        sql/sql_trx/a0_sql_cmd.h
+        sql/sql_exec/a0_sql_cmd.h
 )
