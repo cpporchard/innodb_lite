@@ -8,7 +8,7 @@
 // #include "sql_io/table.h"
 #include "my_alloc.h"
 
-// class THD;
+class THD;
 
 typedef struct xid_t {
 } XID;
@@ -132,9 +132,9 @@ private:
   MEM_ROOT m_mem_root;
 };
 
-//
-// bool is_xa_prepare(THD *thd);
-// bool is_xa_rollback(THD *thd);
+
+bool is_xa_prepare(THD *thd);
+bool is_xa_rollback(THD *thd);
 
 
 #endif //XA_H
