@@ -347,3 +347,26 @@ buf_pool -> disk : flush dirty pages to disk (checkpoint)
 
 ```
 
+
+### Purge
+
+Purge is to clean up delete-marked records (cluster + sec) and old BLOBs.
+
+Purge steps
+- PLAN: purge coordinator thread collects next set of undo records to be processed
+- PURGE: purge thread (can be multiple) remove delete marked records in btree page pointed to by undo records (node -> undo_recs)
+- TRUNCATE: purge coordinator thread waits for step2 to finish and then remove the undo records because they are not needed anymore.
+
+purge and truncate uses cursor over history nodes to figure out what is safe to be purged/truncated.
+
+Cursor: purge_iter_t {trx_no; undo_no;}
+Purge cursor: purge_sys-> iter: up to which we have read the parsed the undo log records
+Truncate cursor: purge_sys-> limit up to which undo is truncatable.
+
+
+In 8.0, enqueued uno records are grouped by table_id before distributing to purge worker threads.
+This way, the purge thread wouldn't content with each other for latches. 
+
+
+Both purge_sys->iter and purge_sys->limit only advance by the purge coordinator thread when processing a
+new batch of undo records.

@@ -65,4 +65,7 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_exec/sql_tcl/xa/sql_xa_commit.h
         sql/sql_exec/sql_tcl/xa/sql_xa_commit.cc
         sql/sql_exec/a0_sql_cmd.h
+        storage/innobase/b4_rem_later/rec.cc
+        storage/innobase/b4_rem_later/rec.h
+        storage/innobase/b4_rem_later/rem0wrec.cc
 )

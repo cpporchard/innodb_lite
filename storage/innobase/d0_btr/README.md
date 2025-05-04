@@ -198,3 +198,28 @@ Sql_cmd_insert::mysql_insert
           >binlog_start_trans_and_stmt
            >binlog_cache_data::write_event                        binlog event 写入到 binlog cache 
 ```
+
+### BTree Navigation
+
+Latch modes, index latch and page latch
+
+- BTR_SEARCH_LEAF - Search a record on a leaf page and S-latch it.
+- BTR_MODIFY_LEAF - (Prepare to) modify a record on a leaf page and X-latch it.
+- BTR_MODIFY_TREE - modify the tree structure (split/merge)
+- BTR_SEARCH_PREV/BTR_MODIFY_PREV - used when scanning backwards and optimistic cursor repositioning failed
+- BTR_SEARCH_TREE - used when the tree is already S or SX latch on the index.
+- BTR_CONT_MODIFY_TREE / BTR_CONT_SEARCH_TREE - tree is already latched. used to navigate to a non-leaf level.
+
+
+### BTree structural modification
+
+#### Page split
+
+```c++
+btr_page_split_and_insert
+    split right; when insertion direction of the tree is forward
+    split left; when insertion direction of the tree is backward
+
+btr_root_raise_and_insert
+    spliting the root
+```

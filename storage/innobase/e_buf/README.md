@@ -100,6 +100,13 @@ buf_page_get_gen()
 #### Adaptive Hash Index (Reads)
 Cache frequently accessed values. AHI doesn't cover the entire index, just the frequently accessed values. 
 
+It observes search pattern, and use the prefix of the index key to build a hash index.
+
+AHI would be helpful in speeding queries that does exact match and not queries with `LIKE` or wild card matches.
+
+AHI hash maps tuple values to record pointers on index page. If successful, it prevents tree navigation.
+AHI is partitioned based on index_id + space
+
 #### Adaptive Flushing (Writes)
 Flushes pages from the buffer pool to disk in a way that optimizes performance. It uses a combination of LRU and FIFO algorithms to determine which pages to flush.
 

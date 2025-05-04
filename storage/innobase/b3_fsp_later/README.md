@@ -141,3 +141,7 @@ Note: Extend and Chunk(allocated by Buffer Pool) are same conceptually.
 ![img_11.png](img_11.png)
 
 ![img_12.png](img_12.png)
+
+### InnoDB Page
+
+It is allocated by fsp_alloc_free_page()

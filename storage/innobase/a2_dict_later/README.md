@@ -106,3 +106,9 @@ InnoDB -> TRX : Commits transaction
 @enduml
 
 ```
+
+
+### Constraints
+
+- Unique Key Constraints: `n_uniq /*!<number of fields from the begining which are enough to determine an index entry uniquely*/` 
+- Foreign Key Constraints
