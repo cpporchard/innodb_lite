@@ -8,6 +8,7 @@
 #include "iterators/basic_row_iterators.h"
 
 
+struct LEX;
 class b_handler;
 
 struct TABLE_SHARE {
@@ -21,6 +22,7 @@ struct TABLE {
 
 class THD {
 public:
+    LEX *lex;
     int killed{0};
     std::unique_ptr<Transaction_ctx> m_transaction;
     Transaction_ctx *get_transaction() { return m_transaction.get(); }

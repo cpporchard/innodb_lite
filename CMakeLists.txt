@@ -68,4 +68,7 @@ add_executable(innobase_lite mysqld.cc
         storage/innobase/b4_rem_later/rec.cc
         storage/innobase/b4_rem_later/rec.h
         storage/innobase/b4_rem_later/rem0wrec.cc
+        sql/sql_exec/sql_parse.cc
+        sql/sql_exec/sql_lex.h
+        sql/sql_exec/mysql_sqlcommand.h
 )
