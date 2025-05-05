@@ -71,4 +71,6 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_exec/sql_parse.cc
         sql/sql_exec/sql_lex.h
         sql/sql_exec/mysql_sqlcommand.h
+        sql/sql_exec/sql_dcl_later/sql_user.cc
+        sql/sql_exec/sql_list.h
 )

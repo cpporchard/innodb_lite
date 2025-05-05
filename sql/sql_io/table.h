@@ -19,6 +19,9 @@ struct TABLE {
     uchar * record;
 };
 
+struct LEX_USER {
+};
+
 
 class THD {
 public:
