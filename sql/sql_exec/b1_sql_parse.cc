@@ -1,7 +1,7 @@
 #define DEBUG_SYNC(_thd_, _sync_point_name_)                 \
 do {                                                         \
 } while (0)
-#include "sql_lex.h"
+#include "b0_sql_lex.h"
 #include "../sql_io/table.h"
 
 

@@ -4,7 +4,7 @@
 
 #ifndef SQL_LEX_H
 #define SQL_LEX_H
-#include "mysql_sqlcommand.h"
+#include "d0_mysql_sqlcommand.h"
 
 class Query_tables_list {
 public:
