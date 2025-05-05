@@ -76,4 +76,11 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_exec/a1_main.cc
         sql/sql_exec/a2_mysqld.cc
         sql/sql_exec/c1_sql_prepare.cc
+        sql/sql_exec/sql_dml/a1_sql_cmd_dml.cc
+        sql/sql_exec/sql_dml/b1_sql_insert.cc
+        sql/sql_exec/sql_dql/a1_sql_select.cc
+        sql/sql_io/sql_union.cc
+        sql/sql_io/item.cc
+        sql/sql_io/query_result.h
+        sql/sql_io/field.cc
 )
