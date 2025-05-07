@@ -4,7 +4,7 @@ project(innobase_mini)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(innobase_lite
-        mysqld.cc
+        sql/mysqld.cc
         sql/sql_io/iterators/basic_row_iterators.cc
         sql/sql_io/iterators/basic_row_iterators.h
         sql/sql_io/iterators/row_iterator.h
@@ -92,4 +92,5 @@ add_executable(innobase_lite
         sql/conn_handler/c_connection_handler_one_thread.cc
         sql/conn_handler/b0_connection_handler.cc
         sql/conn_handler/a_socket_connection.cc
+        mysqld.cc
 )

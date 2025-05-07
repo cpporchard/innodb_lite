@@ -7,7 +7,8 @@
 
 static Connection_acceptor<Mysqld_socket_listener> *mysqld_socket_acceptor = nullptr;
 
-int main(int argc, char **argv) { mysqld_socket_acceptor = new Connection_acceptor(new Mysqld_socket_listener());
+int mysqld_main(int argc, char **argv) {
+    mysqld_socket_acceptor = new Connection_acceptor(new Mysqld_socket_listener());
     mysqld_socket_acceptor->connection_event_loop();
     return 1;
 }
