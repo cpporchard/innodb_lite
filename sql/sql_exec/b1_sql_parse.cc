@@ -2,6 +2,7 @@
 #include "b0_sql_lex.h"
 #include "../sql_io/table.h"
 #include "sql_dcl_later/auth/auth_common.h"
+#include "sql_ddl/sql_db.h"
 
 #define DEBUG_SYNC(_thd_, _sync_point_name_)                 \
 do {                                                         \
@@ -71,152 +72,137 @@ int mysql_execute_command(THD *thd, bool first_level) {
 
 
         case SQLCOM_CREATE_DB: {
-            const char *alias;
-            if (!(alias = thd->strmake(lex->name.str, lex->name.length)) ||
-                (check_and_convert_db_name(&lex->name, false) !=
-                 Ident_name_check::OK))
-                break;
-            if (check_access(thd, CREATE_ACL, lex->name.str, nullptr, nullptr, true,
-                             false))
-                break;
-            /*
-              As mysql_create_db() may modify HA_CREATE_INFO structure passed to
-              it, we need to use a copy of LEX::create_info to make execution
-              prepared statement- safe.
-            */
-            HA_CREATE_INFO create_info(*lex->create_info);
-            res = mysql_create_db(
-                thd, (lower_case_table_names == 2 ? alias : lex->name.str),
-                &create_info);
+            HA_CREATE_INFO create_info;
+            res = mysql_create_db(thd,  lex->name.str, &create_info);
             break;
         }
 
-        case SQLCOM_INSERT:
-        case SQLCOM_DELETE:
-        case SQLCOM_UPDATE:
-        case SQLCOM_CREATE_TABLE:
-        case SQLCOM_CREATE_INDEX:
-        case SQLCOM_DROP_INDEX: {
-            assert(first_table == all_tables && first_table != nullptr);
-            assert(lex->m_sql_cmd != nullptr);
-            res = lex->m_sql_cmd->execute(thd);
-            break;
-        }
-
-        case SQLCOM_PREPARE: {
-            mysql_sql_stmt_prepare(thd);
-            break;
-        }
-        case SQLCOM_EXECUTE: {
-            mysql_sql_stmt_execute(thd);
-            break;
-        }
-        case SQLCOM_DEALLOCATE_PREPARE: {
-            mysql_sql_stmt_close(thd);
-            break;
-        }
-        case SQLCOM_UNLOCK_TABLES: {
-            if (thd->variables.option_bits & OPTION_TABLE_LOCK) {
-                /*
-                  Can we commit safely? If not, return to avoid releasing
-                  transactional metadata locks.
-                */
-                if (trans_check_state(thd)) return -1;
-                res = trans_commit_implicit(thd);
-                thd->locked_tables_list.unlock_locked_tables(thd);
-                thd->mdl_context.release_transactional_locks();
-                thd->variables.option_bits &= ~(OPTION_TABLE_LOCK);
-            }
-            if (thd->global_read_lock.is_acquired())
-                thd->global_read_lock.unlock_global_read_lock(thd);
-            if (res) goto error;
-            my_ok(thd);
-            break;
-        case SQLCOM_LOCK_TABLES:
-            /*
-              Can we commit safely? If not, return to avoid releasing
-              transactional metadata locks.
-            */
-            if (trans_check_state(thd)) return -1;
-            /* We must end the transaction first, regardless of anything */
-            res = trans_commit_implicit(thd);
-            thd->locked_tables_list.unlock_locked_tables(thd);
-            /* Release transactional metadata locks. */
-            thd->mdl_context.release_transactional_locks();
-            if (res) goto error;
-
-            if (open_temporary_tables(thd, all_tables)) goto error;
-
-            if (lock_tables_precheck(thd, all_tables)) goto error;
-
-            thd->variables.option_bits |= OPTION_TABLE_LOCK;
-
-            res = lock_tables_open_and_lock_tables(thd, all_tables);
-
-            if (res) {
-                thd->variables.option_bits &= ~(OPTION_TABLE_LOCK);
-            } else {
-                my_ok(thd);
-            }
-            break;
-        }
-
-        case SQLCOM_BEGIN:
-            if (trans_begin(thd, lex->start_transaction_opt)) goto error;
-            break;
-        case SQLCOM_COMMIT: {
-            assert(thd->lock == nullptr ||
-                thd->locked_tables_mode == LTM_LOCK_TABLES);
-            const bool tx_chain =
-            (lex->tx_chain == TVL_YES ||
-             (thd->variables.completion_type == 1 && lex->tx_chain != TVL_NO));
-            const bool tx_release =
-            (lex->tx_release == TVL_YES ||
-             (thd->variables.completion_type == 2 && lex->tx_release != TVL_NO));
-            if (trans_commit(thd)) goto error;
-            thd->mdl_context.release_transactional_locks();
-            /* Begin transaction with the same isolation level. */
-            if (tx_chain) {
-                if (trans_begin(thd)) goto error;
-            } else {
-                /* Reset the isolation level and access mode if no chaining
-                 * transaction.*/
-                trans_reset_one_shot_chistics(thd);
-            }
-            /* Disconnect the current client connection. */
-            if (tx_release) thd->killed = THD::KILL_CONNECTION;
-            my_ok(thd);
-            break;
-        }
-        case SQLCOM_ROLLBACK: {
-            assert(thd->lock == nullptr ||
-                thd->locked_tables_mode == LTM_LOCK_TABLES);
-            const bool tx_chain =
-            (lex->tx_chain == TVL_YES ||
-             (thd->variables.completion_type == 1 && lex->tx_chain != TVL_NO));
-            const bool tx_release =
-            (lex->tx_release == TVL_YES ||
-             (thd->variables.completion_type == 2 && lex->tx_release != TVL_NO));
-            if (trans_rollback(thd)) goto error;
-            thd->mdl_context.release_transactional_locks();
-            /* Begin transaction with the same isolation level. */
-            if (tx_chain) {
-                if (trans_begin(thd)) goto error;
-            } else {
-                /* Reset the isolation level and access mode if no chaining
-                 * transaction.*/
-                trans_reset_one_shot_chistics(thd);
-            }
-            /* Disconnect the current client connection. */
-            if (tx_release) thd->killed = THD::KILL_CONNECTION;
-            my_ok(thd);
-            break;
-
-        default:
-            assert(0); /* Impossible */
-            my_ok(thd);
-            break;
-        }
-            goto finish;
+        // case SQLCOM_INSERT:
+        // case SQLCOM_DELETE:
+        // case SQLCOM_UPDATE:
+        // case SQLCOM_CREATE_TABLE:
+        // case SQLCOM_CREATE_INDEX:
+        // case SQLCOM_DROP_INDEX: {
+        //     assert(first_table == all_tables && first_table != nullptr);
+        //     assert(lex->m_sql_cmd != nullptr);
+        //     res = lex->m_sql_cmd->execute(thd);
+        //     break;
+        // }
+        //
+        // case SQLCOM_PREPARE: {
+        //     mysql_sql_stmt_prepare(thd);
+        //     break;
+        // }
+        // case SQLCOM_EXECUTE: {
+        //     mysql_sql_stmt_execute(thd);
+        //     break;
+        // }
+        // case SQLCOM_DEALLOCATE_PREPARE: {
+        //     mysql_sql_stmt_close(thd);
+        //     break;
+        // }
+        // case SQLCOM_UNLOCK_TABLES: {
+        //     if (thd->variables.option_bits & OPTION_TABLE_LOCK) {
+        //         /*
+        //           Can we commit safely? If not, return to avoid releasing
+        //           transactional metadata locks.
+        //         */
+        //         if (trans_check_state(thd)) return -1;
+        //         res = trans_commit_implicit(thd);
+        //         thd->locked_tables_list.unlock_locked_tables(thd);
+        //         thd->mdl_context.release_transactional_locks();
+        //         thd->variables.option_bits &= ~(OPTION_TABLE_LOCK);
+        //     }
+        //     if (thd->global_read_lock.is_acquired())
+        //         thd->global_read_lock.unlock_global_read_lock(thd);
+        //     if (res) goto error;
+        //     my_ok(thd);
+        //     break;
+        // case SQLCOM_LOCK_TABLES:
+        //     /*
+        //       Can we commit safely? If not, return to avoid releasing
+        //       transactional metadata locks.
+        //     */
+        //     if (trans_check_state(thd)) return -1;
+        //     /* We must end the transaction first, regardless of anything */
+        //     res = trans_commit_implicit(thd);
+        //     thd->locked_tables_list.unlock_locked_tables(thd);
+        //     /* Release transactional metadata locks. */
+        //     thd->mdl_context.release_transactional_locks();
+        //     if (res) goto error;
+        //
+        //     if (open_temporary_tables(thd, all_tables)) goto error;
+        //
+        //     if (lock_tables_precheck(thd, all_tables)) goto error;
+        //
+        //     thd->variables.option_bits |= OPTION_TABLE_LOCK;
+        //
+        //     res = lock_tables_open_and_lock_tables(thd, all_tables);
+        //
+        //     if (res) {
+        //         thd->variables.option_bits &= ~(OPTION_TABLE_LOCK);
+        //     } else {
+        //         my_ok(thd);
+        //     }
+        //     break;
+        // }
+        //
+        // case SQLCOM_BEGIN:
+        //     if (trans_begin(thd, lex->start_transaction_opt)) goto error;
+        //     break;
+        // case SQLCOM_COMMIT: {
+        //     assert(thd->lock == nullptr ||
+        //         thd->locked_tables_mode == LTM_LOCK_TABLES);
+        //     const bool tx_chain =
+        //     (lex->tx_chain == TVL_YES ||
+        //      (thd->variables.completion_type == 1 && lex->tx_chain != TVL_NO));
+        //     const bool tx_release =
+        //     (lex->tx_release == TVL_YES ||
+        //      (thd->variables.completion_type == 2 && lex->tx_release != TVL_NO));
+        //     if (trans_commit(thd)) goto error;
+        //     thd->mdl_context.release_transactional_locks();
+        //     /* Begin transaction with the same isolation level. */
+        //     if (tx_chain) {
+        //         if (trans_begin(thd)) goto error;
+        //     } else {
+        //         /* Reset the isolation level and access mode if no chaining
+        //          * transaction.*/
+        //         trans_reset_one_shot_chistics(thd);
+        //     }
+        //     /* Disconnect the current client connection. */
+        //     if (tx_release) thd->killed = THD::KILL_CONNECTION;
+        //     my_ok(thd);
+        //     break;
+        // }
+        // case SQLCOM_ROLLBACK: {
+        //     assert(thd->lock == nullptr ||
+        //         thd->locked_tables_mode == LTM_LOCK_TABLES);
+        //     const bool tx_chain =
+        //     (lex->tx_chain == TVL_YES ||
+        //      (thd->variables.completion_type == 1 && lex->tx_chain != TVL_NO));
+        //     const bool tx_release =
+        //     (lex->tx_release == TVL_YES ||
+        //      (thd->variables.completion_type == 2 && lex->tx_release != TVL_NO));
+        //     if (trans_rollback(thd)) goto error;
+        //     thd->mdl_context.release_transactional_locks();
+        //     /* Begin transaction with the same isolation level. */
+        //     if (tx_chain) {
+        //         if (trans_begin(thd)) goto error;
+        //     } else {
+        //         /* Reset the isolation level and access mode if no chaining
+        //          * transaction.*/
+        //         trans_reset_one_shot_chistics(thd);
+        //     }
+        //     /* Disconnect the current client connection. */
+        //     if (tx_release) thd->killed = THD::KILL_CONNECTION;
+        //     my_ok(thd);
+        //     break;
+        //
+        // default:
+        //     assert(0); /* Impossible */
+        //     my_ok(thd);
+        //     break;
+        // }
+        //     goto finish;
     }
 }

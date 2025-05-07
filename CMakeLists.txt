@@ -96,4 +96,6 @@ add_executable(innobase_lite
         sql/sql_exec/b1_sql_parse.h
         sql/conn_handler/z_channel_info.cc
         sql/sql_exec/sql_dcl_later/auth/auth_common.h
+        sql/sql_exec/sql_ddl/sql_db.h
+        sql/sql_exec/sql_ddl/sql_db.cc
 )
