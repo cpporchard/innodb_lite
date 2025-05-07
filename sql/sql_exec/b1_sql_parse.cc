@@ -8,6 +8,44 @@ do {                                                         \
 class Table_ref;
 class THD;
 
+struct COM_INIT_DB_DATA {
+    const char *db_name;
+    unsigned long length;
+};
+
+union COM_DATA {
+    COM_INIT_DB_DATA com_init_db;
+};
+
+enum enum_server_command {
+    /**
+      Currently refused by the server. See ::dispatch_command.
+      Also used internally to mark the start of a session.
+    */
+    COM_SLEEP,
+};
+
+bool dispatch_command(THD *thd, const COM_DATA *com_data, enum enum_server_command command);
+
+void dispatch_sql_command(THD *thd, Parser_state *parser_state, bool is_retry);
+
+int mysql_execute_command(THD *thd, bool first_level);
+
+bool do_command(THD *thd) {
+    COM_DATA com_data;
+    enum enum_server_command command = COM_SLEEP;
+    return dispatch_command(thd, &com_data, command);
+}
+
+bool dispatch_command(THD *thd, const COM_DATA *com_data, enum enum_server_command command) {
+    Parser_state parser_state;
+    dispatch_sql_command(thd, &parser_state, /*is_retry=*/true);
+}
+
+void dispatch_sql_command(THD *thd, Parser_state *parser_state, bool is_retry) {
+    mysql_execute_command(thd, true);
+}
+
 int mysql_execute_command(THD *thd, bool first_level) {
     int res = false;
     LEX *const lex = thd->lex;
@@ -331,5 +369,4 @@ int mysql_execute_command(THD *thd, bool first_level) {
     //     }
     //     goto finish;
     // }
-
 }

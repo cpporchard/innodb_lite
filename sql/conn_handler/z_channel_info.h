@@ -5,6 +5,7 @@
 #ifndef CHANNEL_INFO_H
 #define CHANNEL_INFO_H
 
+class THD;
 /**
   This abstract base class represents connection channel information
   about a new connection. Its subclasses encapsulate differences
@@ -14,7 +15,8 @@
   named pipes and shared memory (Windows only).
 */
 class Channel_info {
-    // ulonglong prior_thr_create_utime;
+public:
+    virtual THD *create_thd();
 };
 
 #endif //CHANNEL_INFO_H

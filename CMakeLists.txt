@@ -93,4 +93,6 @@ add_executable(innobase_lite
         sql/conn_handler/b0_connection_handler.cc
         sql/conn_handler/a_socket_connection.cc
         mysqld.cc
+        sql/sql_exec/b1_sql_parse.h
+        sql/conn_handler/z_channel_info.cc
 )

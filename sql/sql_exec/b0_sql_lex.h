@@ -14,4 +14,8 @@ public:
 struct LEX : public Query_tables_list {
 
 };
+
+class Parser_state {
+};
+
 #endif //SQL_LEX_H
