@@ -72,7 +72,7 @@ add_executable(innobase_lite
         sql/sql_exec/b1_sql_parse.cc
         sql/sql_exec/b0_sql_lex.h
         sql/sql_exec/d0_mysql_sqlcommand.h
-        sql/sql_exec/sql_dcl_later/sql_user.cc
+        sql/sql_exec/sql_dcl_later/auth/sql_user.cc
         sql/sql_list.h
         sql/sql_exec/c1_sql_prepare.cc
         sql/sql_exec/sql_dml/a1_sql_cmd_dml.cc
@@ -95,4 +95,5 @@ add_executable(innobase_lite
         mysqld.cc
         sql/sql_exec/b1_sql_parse.h
         sql/conn_handler/z_channel_info.cc
+        sql/sql_exec/sql_dcl_later/auth/auth_common.h
 )

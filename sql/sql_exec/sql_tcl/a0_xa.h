@@ -7,6 +7,7 @@
 
 // #include "sql_io/table.h"
 #include "../../my_alloc.h"
+#include "../../sql_list.h"
 
 class THD;
 
@@ -110,9 +111,6 @@ struct st_handler_tablename {
   const char *tablename;
 };
 
-template <class T>
-class List{
-};
 
 typedef struct st_xarecover_txn {
   XID id;
