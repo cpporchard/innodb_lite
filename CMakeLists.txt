@@ -3,7 +3,8 @@ project(innobase_mini)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(innobase_lite mysqld.cc
+add_executable(innobase_lite
+        mysqld.cc
         sql/sql_io/iterators/basic_row_iterators.cc
         sql/sql_io/iterators/basic_row_iterators.h
         sql/sql_io/iterators/row_iterator.h
@@ -73,8 +74,6 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_exec/d0_mysql_sqlcommand.h
         sql/sql_exec/sql_dcl_later/sql_user.cc
         sql/sql_list.h
-        sql/sql_exec/a1_main.cc
-        sql/sql_exec/a2_mysqld.cc
         sql/sql_exec/c1_sql_prepare.cc
         sql/sql_exec/sql_dml/a1_sql_cmd_dml.cc
         sql/sql_exec/sql_dml/b1_sql_insert.cc
@@ -83,4 +82,14 @@ add_executable(innobase_lite mysqld.cc
         sql/sql_io/item.cc
         sql/sql_io/query_result.h
         sql/sql_io/field.cc
+        sql/conn_handler/a_connection_acceptor.h
+        sql/conn_handler/a_socket_connection.h
+        sql/conn_handler/b1_connection_handler_manager.h
+        sql/conn_handler/z_channel_info.h
+        sql/conn_handler/b1_connection_handler_manager.cc
+        sql/conn_handler/b0_connection_handler.h
+        sql/conn_handler/c_connection_handler_impl.h
+        sql/conn_handler/c_connection_handler_one_thread.cc
+        sql/conn_handler/b0_connection_handler.cc
+        sql/conn_handler/a_socket_connection.cc
 )

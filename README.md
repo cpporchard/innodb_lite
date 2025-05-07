@@ -17,3 +17,12 @@
 - https://www.youtube.com/@hercules7sakthi/videos
 - https://www.youtube.com/watch?v=CUiGGqVN00E
 - https://blog.jcole.us/2013/01/02/on-learning-innodb-a-journey-to-the-core/
+
+
+```shell
+mkdir build
+cd build
+
+cmake ..
+make
+```
