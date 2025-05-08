@@ -43,6 +43,7 @@ bool do_command(THD *thd) {
 bool dispatch_command(THD *thd, const COM_DATA *com_data, enum enum_server_command command) {
     Parser_state parser_state;
     dispatch_sql_command(thd, &parser_state, /*is_retry=*/true);
+    return true;
 }
 
 void dispatch_sql_command(THD *thd, Parser_state *parser_state, bool is_retry) {
@@ -141,4 +142,5 @@ int mysql_execute_command(THD *thd, bool first_level) {
     }
 error:
     res = true;
+    return 1;
 }
