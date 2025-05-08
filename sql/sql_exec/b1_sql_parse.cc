@@ -77,13 +77,16 @@ int mysql_execute_command(THD *thd, bool first_level) {
             break;
         }
 
-        // DDL + DML
-        case SQLCOM_INSERT:
-        case SQLCOM_DELETE:
-        case SQLCOM_UPDATE:
+        // DDL + DQL + DML
         case SQLCOM_CREATE_TABLE:
         case SQLCOM_CREATE_INDEX:
-        case SQLCOM_DROP_INDEX: {
+        case SQLCOM_DROP_INDEX:
+
+        case SQLCOM_SELECT:
+
+        case SQLCOM_INSERT:
+        case SQLCOM_DELETE:
+        case SQLCOM_UPDATE: {
             res = lex->m_sql_cmd->execute(thd);
             break;
         }
