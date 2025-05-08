@@ -9,6 +9,7 @@ class Sql_cmd;
 class Sql_cmd_dml : public Sql_cmd {
 public:
     bool execute(THD *thd) override;
+
 };
 
 #endif //Z_SQL_DML_H

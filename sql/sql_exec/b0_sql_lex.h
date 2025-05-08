@@ -4,6 +4,7 @@
 
 #ifndef SQL_LEX_H
 #define SQL_LEX_H
+#include "a_parse_tree_nodes.h"
 #include "z_mysql_sqlcommand.h"
 #include "z_sql_cmd.h"
 #include "../sql_list.h"
@@ -22,9 +23,13 @@ public:
 };
 
 struct LEX : public Query_tables_list {
+public:
     List<LEX_USER> users_list;
     LEX_STRING name;
     Sql_cmd *m_sql_cmd;
+    THD *thd;
+
+    bool make_sql_cmd(Parse_tree_root *parse_tree);
 };
 
 class Parser_state {

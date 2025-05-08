@@ -5,9 +5,10 @@
 #ifndef A1_SQL_SELECT_H
 #define A1_SQL_SELECT_H
 
+#include "../z_sql_dml.h"
+
 class Item;
 class Query_result;
-class Sql_cmd_dml;
 class THD;
 
 
@@ -25,10 +26,10 @@ protected:
 class Sql_cmd_select : public Sql_cmd_dml {
 public:
     explicit Sql_cmd_select(Query_result *result_arg) : Sql_cmd_dml() {
-        result = result_arg;
+        // result = result_arg;
     }
 
-    bool accept(THD *thd, Select_lex_visitor *visitor) override;
+    bool accept(THD *thd, Select_lex_visitor *visitor);
 
 protected:
 };

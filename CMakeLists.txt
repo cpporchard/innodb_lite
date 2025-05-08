@@ -104,4 +104,10 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/z_sql_dml.h
         sql/sql_io/item.h
         sql/sql_exec/sql_dml/sql_dql/b1_sql_union.h
+        sql/sql_class.cc
+        sql/sql_class.h
+        sql/sql_exec/a_parse_tree_nodes.h
+        sql/sql_exec/b0_sql_lex.cc
+        sql/sql_exec/a_parse_tree_nodes.cc
+        sql/sql_exec/sql_dml/sql_dql/a2_sql_show.h
 )
