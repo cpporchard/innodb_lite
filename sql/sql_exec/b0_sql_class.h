@@ -4,8 +4,8 @@
 
 #ifndef SQL_CLASS_H
 #define SQL_CLASS_H
-#include "sql_exec/b0_sql_lex.h"
-#include "sql_io/table.h"
+#include "a1_sql_lex.h"
+#include "../sql_io/table.h"
 
 
 #endif //SQL_CLASS_H

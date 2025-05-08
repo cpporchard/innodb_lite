@@ -1,4 +1,4 @@
-#include "b0_sql_lex.h"
+#include "a1_sql_lex.h"
 #include "../sql_io/table.h"
 #include "sql_dcl_later/auth/auth_common.h"
 #include "sql_ddl/sql_db.h"
@@ -29,6 +29,7 @@ enum enum_server_command {
 };
 
 bool dispatch_command(THD *thd, const COM_DATA *com_data, enum enum_server_command command);
+bool parse_sql(THD *thd, Parser_state *parser_state);
 
 void dispatch_sql_command(THD *thd, Parser_state *parser_state, bool is_retry);
 
@@ -42,6 +43,7 @@ bool do_command(THD *thd) {
 
 bool dispatch_command(THD *thd, const COM_DATA *com_data, enum enum_server_command command) {
     Parser_state parser_state;
+    parse_sql(thd, &parser_state);
     dispatch_sql_command(thd, &parser_state, /*is_retry=*/true);
     return true;
 }
@@ -143,4 +145,9 @@ int mysql_execute_command(THD *thd, bool first_level) {
 error:
     res = true;
     return 1;
+}
+
+bool parse_sql(THD *thd, Parser_state *parser_state) {
+    const bool mysql_parse_status = thd->sql_parser();
+    return mysql_parse_status;
 }

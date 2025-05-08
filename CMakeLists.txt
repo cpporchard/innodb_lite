@@ -70,7 +70,7 @@ add_executable(innobase_lite
         storage/innobase/b4_rem_later/rec.h
         storage/innobase/b4_rem_later/rem0wrec.cc
         sql/sql_exec/b1_sql_parse.cc
-        sql/sql_exec/b0_sql_lex.h
+        sql/sql_exec/a1_sql_lex.h
         sql/sql_exec/z_mysql_sqlcommand.h
         sql/sql_exec/sql_dcl_later/auth/sql_user.cc
         sql/sql_list.h
@@ -104,11 +104,11 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/z_sql_dml.h
         sql/sql_io/item.h
         sql/sql_exec/sql_dml/sql_dql/b1_sql_union.h
-        sql/sql_class.cc
-        sql/sql_class.h
-        sql/sql_exec/a_parse_tree_nodes.h
-        sql/sql_exec/b0_sql_lex.cc
-        sql/sql_exec/a_parse_tree_nodes.cc
+        sql/sql_exec/b0_sql_class.cc
+        sql/sql_exec/b0_sql_class.h
+        sql/sql_exec/a0_parse_tree_nodes.h
+        sql/sql_exec/a1_sql_lex.cc
+        sql/sql_exec/a0_parse_tree_nodes.cc
         sql/sql_exec/sql_dml/sql_dql/a2_sql_show.h
         sql/sql_exec/sql_dml/sql_dql/sql_show_processlist.h
         sql/sql_exec/sql_dml/sql_dql/sql_show_processlist.cc
