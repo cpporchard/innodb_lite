@@ -2,6 +2,7 @@
 #define TABLE_INCLUDED
 #include <memory>
 
+#include "mdl.h"
 #include "../sql_exec/sql_tcl/b_handler.h"
 #include "../sql_exec/sql_tcl/a0_xa.h"
 #include "../sql_exec/sql_tcl/z_transaction_info.h"
@@ -23,12 +24,19 @@ struct LEX_USER {
 };
 
 
+class Locked_tables_list {
+public:
+    void unlock_locked_tables(THD *thd);
+};
+
 class THD {
 public:
     LEX *lex;
     int killed{0};
     std::unique_ptr<Transaction_ctx> m_transaction;
     Transaction_ctx *get_transaction() { return m_transaction.get(); }
+    MDL_context mdl_context;
+    Locked_tables_list locked_tables_list;
 };
 
 #endif  // TABLE_INCLUDED

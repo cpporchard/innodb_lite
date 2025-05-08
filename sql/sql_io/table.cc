@@ -3,3 +3,7 @@
 //
 
 #include "table.h"
+
+void Locked_tables_list::unlock_locked_tables(THD *thd) {
+
+}

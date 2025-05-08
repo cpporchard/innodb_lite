@@ -98,4 +98,6 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dcl_later/auth/auth_common.h
         sql/sql_exec/sql_ddl/sql_db.h
         sql/sql_exec/sql_ddl/sql_db.cc
+        sql/sql_io/mdl.h
+        sql/sql_io/mdl.cc
 )

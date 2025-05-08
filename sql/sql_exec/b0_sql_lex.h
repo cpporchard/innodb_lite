@@ -5,6 +5,7 @@
 #ifndef SQL_LEX_H
 #define SQL_LEX_H
 #include "d0_mysql_sqlcommand.h"
+#include "d1_sql_cmd.h"
 #include "../sql_list.h"
 
 struct MYSQL_LEX_STRING {
@@ -23,6 +24,7 @@ public:
 struct LEX : public Query_tables_list {
     List<LEX_USER> users_list;
     LEX_STRING name;
+    Sql_cmd *m_sql_cmd;
 };
 
 class Parser_state {
