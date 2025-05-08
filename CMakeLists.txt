@@ -99,4 +99,5 @@ add_executable(innobase_lite
         sql/sql_exec/sql_ddl/sql_db.cc
         sql/sql_io/mdl.h
         sql/sql_io/mdl.cc
+        sql/sql_exec/sql_tcl/a0_xa.cc
 )

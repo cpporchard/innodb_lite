@@ -88,7 +88,7 @@ int mysql_execute_command(THD *thd, bool first_level) {
             break;
         }
 
-        // TCL
+        // TCL - Regular
         case SQLCOM_UNLOCK_TABLES: {
             break;
         case SQLCOM_LOCK_TABLES:
@@ -118,6 +118,17 @@ int mysql_execute_command(THD *thd, bool first_level) {
             if (tx_chain) {
                 if (trans_begin(thd)) goto error;
             }
+            break;
+        }
+
+        // TCL - XA
+        case SQLCOM_XA_START:
+        case SQLCOM_XA_END:
+        case SQLCOM_XA_PREPARE:
+        case SQLCOM_XA_COMMIT:
+        case SQLCOM_XA_ROLLBACK:
+        case SQLCOM_XA_RECOVER: {
+            res = lex->m_sql_cmd->execute(thd);
             break;
         }
 
