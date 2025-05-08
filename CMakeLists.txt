@@ -77,7 +77,7 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/a1_sql_cmd_dml.cc
         sql/sql_exec/sql_dml/b1_sql_insert.cc
         sql/sql_exec/sql_dql/a1_sql_select.cc
-        sql/sql_io/sql_union.cc
+        sql/sql_exec/sql_dql/b1_sql_union.cc
         sql/sql_io/item.cc
         sql/sql_io/query_result.h
         sql/sql_io/field.cc
@@ -103,4 +103,5 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dql/a1_sql_select.h
         sql/sql_exec/sql_dml/z_sql_dml.h
         sql/sql_io/item.h
+        sql/sql_exec/sql_dql/b1_sql_union.h
 )
