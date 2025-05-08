@@ -5,4 +5,12 @@
 #ifndef QUERY_RESULT_H
 #define QUERY_RESULT_H
 
+/*
+  This is used to get result from a query
+*/
+
+class Query_result {
+protected:
+};
+
 #endif //QUERY_RESULT_H

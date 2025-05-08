@@ -100,4 +100,7 @@ add_executable(innobase_lite
         sql/sql_io/mdl.h
         sql/sql_io/mdl.cc
         sql/sql_exec/sql_tcl/a0_xa.cc
+        sql/sql_exec/sql_dql/a1_sql_select.h
+        sql/sql_exec/sql_dml/z_sql_dml.h
+        sql/sql_io/item.h
 )
