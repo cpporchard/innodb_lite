@@ -89,18 +89,6 @@ int mysql_execute_command(THD *thd, bool first_level) {
         }
 
         // TCL
-        // case SQLCOM_PREPARE: {
-        //     mysql_sql_stmt_prepare(thd);
-        //     break;
-        // }
-        // case SQLCOM_EXECUTE: {
-        //     mysql_sql_stmt_execute(thd);
-        //     break;
-        // }
-        // case SQLCOM_DEALLOCATE_PREPARE: {
-        //     mysql_sql_stmt_close(thd);
-        //     break;
-        // }
         case SQLCOM_UNLOCK_TABLES: {
             break;
         case SQLCOM_LOCK_TABLES:
@@ -109,7 +97,6 @@ int mysql_execute_command(THD *thd, bool first_level) {
             thd->mdl_context.release_transactional_locks();
             break;
         }
-
         case SQLCOM_BEGIN:
             if (trans_begin(thd, 0)) goto error;
             break;

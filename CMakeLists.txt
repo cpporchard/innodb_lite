@@ -74,7 +74,6 @@ add_executable(innobase_lite
         sql/sql_exec/d0_mysql_sqlcommand.h
         sql/sql_exec/sql_dcl_later/auth/sql_user.cc
         sql/sql_list.h
-        sql/sql_exec/c1_sql_prepare.cc
         sql/sql_exec/sql_dml/a1_sql_cmd_dml.cc
         sql/sql_exec/sql_dml/b1_sql_insert.cc
         sql/sql_exec/sql_dql/a1_sql_select.cc
