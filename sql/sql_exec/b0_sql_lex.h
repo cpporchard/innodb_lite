@@ -4,8 +4,8 @@
 
 #ifndef SQL_LEX_H
 #define SQL_LEX_H
-#include "d0_mysql_sqlcommand.h"
-#include "d1_sql_cmd.h"
+#include "z_mysql_sqlcommand.h"
+#include "z_sql_cmd.h"
 #include "../sql_list.h"
 
 struct MYSQL_LEX_STRING {
