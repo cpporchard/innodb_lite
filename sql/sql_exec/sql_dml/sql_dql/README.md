@@ -3,4 +3,5 @@
 
 ### Commands
 
-SELECt
+SELECT
+SHOW

@@ -33,6 +33,10 @@
 
 #include "table.h"
 
+bool open_tables_for_query(THD *thd, Table_ref *tables, int flags){
+    return true;
+}
+
 bool open_tables(THD *thd, Table_ref **start, uint *counter, uint flags,
                  Prelocking_strategy *prelocking_strategy) {
 }

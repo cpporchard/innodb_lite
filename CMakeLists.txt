@@ -110,6 +110,6 @@ add_executable(innobase_lite
         sql/sql_exec/a1_sql_lex.cc
         sql/sql_exec/a0_parse_tree_nodes.cc
         sql/sql_exec/sql_dml/sql_dql/a2_sql_show.h
-        sql/sql_exec/sql_dml/sql_dql/sql_show_processlist.h
-        sql/sql_exec/sql_dml/sql_dql/sql_show_processlist.cc
+        sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.h
+        sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.cc
 )

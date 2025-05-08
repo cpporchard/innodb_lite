@@ -4,6 +4,7 @@
 
 #ifndef SQL_BASE_H
 #define SQL_BASE_H
+#include "table.h"
 
 class Prelocking_strategy {
 };
@@ -22,5 +23,7 @@ public:
         OT_FIX_ROW_TYPE
       };
 };
+
+bool open_tables_for_query(THD *thd, Table_ref *tables, int flags);
 
 #endif //SQL_BASE_H

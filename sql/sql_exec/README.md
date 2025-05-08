@@ -12,3 +12,8 @@ COMMIT ;
 
 SELECT * from t1;
 ```
+
+Main logic is here
+```c++
+bool dispatch_command(THD *thd, const COM_DATA *com_data, enum enum_server_command command);
+```
