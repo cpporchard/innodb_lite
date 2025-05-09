@@ -49,6 +49,11 @@ bool dispatch_command(THD *thd, const COM_DATA *com_data, enum enum_server_comma
     return true;
 }
 
+bool parse_sql(THD *thd, Parser_state *parser_state) {
+    const bool mysql_parse_status = thd->sql_parser();
+    return mysql_parse_status;
+}
+
 void dispatch_sql_command(THD *thd, Parser_state *parser_state, bool is_retry) {
     mysql_execute_command(thd, true);
 }
@@ -146,9 +151,4 @@ int mysql_execute_command(THD *thd, bool first_level) {
 error:
     res = true;
     return 1;
-}
-
-bool parse_sql(THD *thd, Parser_state *parser_state) {
-    const bool mysql_parse_status = thd->sql_parser();
-    return mysql_parse_status;
 }
