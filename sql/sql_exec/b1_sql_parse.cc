@@ -3,6 +3,7 @@
 #include "sql_dcl_later/auth/auth_common.h"
 #include "sql_ddl/sql_db.h"
 #include "sql_tcl/a0_transaction.h"
+#include <cassert>
 
 #define DEBUG_SYNC(_thd_, _sync_point_name_)                 \
 do {                                                         \
