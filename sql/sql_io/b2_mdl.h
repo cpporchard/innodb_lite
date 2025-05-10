@@ -5,6 +5,7 @@
 #ifndef MDL_H
 #define MDL_H
 
+// Meta Data Lock
 class MDL_context {
 public:
     void release_transactional_locks();
