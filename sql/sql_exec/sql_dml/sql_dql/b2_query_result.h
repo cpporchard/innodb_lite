@@ -4,8 +4,8 @@
 
 #ifndef QUERY_RESULT_H
 #define QUERY_RESULT_H
-#include "c1_item.h"
-#include "../sql_exec/b0_sql_class.h"
+#include "../../../sql_io/c1_item.h"
+#include "../../b0_sql_class.h"
 
 /*
   This is used to get result from a query

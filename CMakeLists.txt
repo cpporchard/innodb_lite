@@ -79,7 +79,7 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/sql_dql/a1_sql_select.cc
         sql/sql_exec/sql_dml/sql_dql/b1_sql_union.cc
         sql/sql_io/c1_item.cc
-        sql/sql_io/query_result.h
+        sql/sql_exec/sql_dml/sql_dql/b2_query_result.h
         sql/sql_io/c2_field.cc
         sql/conn_handler/a_connection_acceptor.h
         sql/conn_handler/a_socket_connection.h
@@ -112,7 +112,7 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.h
         sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.cc
         sql/sql_io/c2_field.h
-        sql/sql_io/query_result.cc
+        sql/sql_exec/sql_dml/sql_dql/b2_query_result.cc
         sql/conn_handler/za_protocol.h
         sql/conn_handler/za_protocol.cc
 )

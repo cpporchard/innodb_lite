@@ -7,6 +7,7 @@
 #include "a1_sql_lex.h"
 #include "../conn_handler/za_protocol.h"
 #include "../sql_io/b1_table.h"
+#include "../sql_io/c1_item.h"
 
 template<class Element_type>
 class mem_root_deque {

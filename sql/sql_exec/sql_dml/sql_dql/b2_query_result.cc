@@ -4,10 +4,10 @@
 
 /* Send data to client. Returns 0 if ok */
 
-#include "query_result.h"
+#include "b2_query_result.h"
 
-#include "c1_item.h"
-#include "../sql_exec/b0_sql_class.h"
+#include "../../../sql_io/c1_item.h"
+#include "../../b0_sql_class.h"
 
 class Protocol;
 class THD;
