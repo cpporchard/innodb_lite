@@ -84,7 +84,7 @@ add_executable(innobase_lite
         sql/conn_handler/a_connection_acceptor.h
         sql/conn_handler/a_socket_connection.h
         sql/conn_handler/b1_connection_handler_manager.h
-        sql/conn_handler/z_channel_info.h
+        sql/conn_handler/zz_channel_info.h
         sql/conn_handler/b1_connection_handler_manager.cc
         sql/conn_handler/b0_connection_handler.h
         sql/conn_handler/c_connection_handler_impl.h
@@ -92,7 +92,7 @@ add_executable(innobase_lite
         sql/conn_handler/a_socket_connection.cc
         mysqld.cc
         sql/sql_exec/b1_sql_parse.h
-        sql/conn_handler/z_channel_info.cc
+        sql/conn_handler/zz_channel_info.cc
         sql/sql_exec/sql_dcl_later/auth/auth_common.h
         sql/sql_exec/sql_ddl/sql_db.h
         sql/sql_exec/sql_ddl/sql_db.cc
@@ -112,4 +112,7 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.h
         sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.cc
         sql/sql_io/c2_field.h
+        sql/sql_io/query_result.cc
+        sql/conn_handler/za_protocol.h
+        sql/conn_handler/za_protocol.cc
 )

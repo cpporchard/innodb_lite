@@ -35,3 +35,14 @@ bool THD::sql_parser() {
     return false;
 }
 
+void  THD::inc_sent_row_count(int i) {
+
+}
+
+Protocol *THD::get_protocol() {
+    auto var = new Protocol();
+    return var;
+}
+
+bool THD::send_result_set_row(const mem_root_deque<Item *> &row_items) {
+}

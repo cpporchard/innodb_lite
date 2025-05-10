@@ -1,4 +1,4 @@
-#include "z_channel_info.h"
+#include "zz_channel_info.h"
 
 
 THD *Channel_info::create_thd() {

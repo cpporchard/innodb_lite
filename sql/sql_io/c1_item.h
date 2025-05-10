@@ -4,6 +4,8 @@
 
 #ifndef ITEM_H
 #define ITEM_H
+#include "c2_field.h"
+#include "../sql_exec/a0_parse_tree_nodes.h"
 
 class Item: public Parse_tree_node {
     /**

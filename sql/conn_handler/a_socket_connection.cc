@@ -6,7 +6,7 @@
 
 #include <new>
 
-#include "z_channel_info.h"
+#include "zz_channel_info.h"
 
 struct MYSQL_SOCKET {
 };

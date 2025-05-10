@@ -4,7 +4,7 @@
 
 #ifndef SOCKET_CONNECTION_H
 #define SOCKET_CONNECTION_H
-#include "z_channel_info.h"
+#include "zz_channel_info.h"
 
 /**
   This class represents the Mysqld_socket_listener which prepares the
