@@ -1,5 +1,6 @@
 #include "basic_row_iterators.h"
 #include <string>
+#include "../../sql_exec/b0_sql_class.h"
 
 using std::string;
 

@@ -1,6 +1,7 @@
 #include "../z_sql_dml.h"
 #include "../../../sql_io/sql_base.h"
 #include "../../a1_sql_lex.h"
+#include "../../b0_sql_class.h"
 
 class THD;
 

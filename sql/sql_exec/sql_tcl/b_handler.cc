@@ -1,6 +1,7 @@
 #include "b_handler.h"
 
 #include "c_tc_log.h"
+#include "../b0_sql_class.h"
 
 
 #define MYSQL_TABLE_IO_WAIT(OP, INDEX, RESULT, PAYLOAD) PAYLOAD

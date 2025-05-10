@@ -4,6 +4,7 @@
 #include "sql_ddl/sql_db.h"
 #include "sql_tcl/a0_transaction.h"
 #include <cassert>
+#include "../sql_exec/b0_sql_class.h"
 
 #define DEBUG_SYNC(_thd_, _sync_point_name_)                 \
 do {                                                         \
