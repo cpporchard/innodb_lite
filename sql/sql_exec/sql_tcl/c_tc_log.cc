@@ -1,7 +1,7 @@
 #include "c_tc_log.h"
 
 #include "d_sql_plugin_ref.h"
-#include "../../sql_io/a2_table.h"
+#include "../../sql_io/b1_table.h"
 #include "../b0_sql_class.h"
 
 

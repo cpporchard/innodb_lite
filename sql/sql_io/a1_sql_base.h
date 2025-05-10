@@ -4,7 +4,7 @@
 
 #ifndef SQL_BASE_H
 #define SQL_BASE_H
-#include "a2_table.h"
+#include "b1_table.h"
 
 class Prelocking_strategy {
 };

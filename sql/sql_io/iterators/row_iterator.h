@@ -1,7 +1,7 @@
 #ifndef SQL_ITERATORS_ROW_ITERATOR_H_
 #define SQL_ITERATORS_ROW_ITERATOR_H_
 
-#include "../a2_table.h"
+#include "../b1_table.h"
 
 struct THD;
 struct TABLE;

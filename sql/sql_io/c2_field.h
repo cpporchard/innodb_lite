@@ -4,7 +4,7 @@
 
 #ifndef C1_FIELD_H
 #define C1_FIELD_H
-#include "a2_table.h"
+#include "b1_table.h"
 
 class Field {
 public:

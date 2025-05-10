@@ -31,7 +31,7 @@
 
 #include <sys/types.h>
 
-#include "a2_table.h"
+#include "b1_table.h"
 
 bool open_tables_for_query(THD *thd, Table_ref *tables, int flags){
     return true;

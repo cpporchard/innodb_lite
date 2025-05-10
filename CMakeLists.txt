@@ -8,7 +8,7 @@ add_executable(innobase_lite
         sql/sql_io/iterators/basic_row_iterators.cc
         sql/sql_io/iterators/basic_row_iterators.h
         sql/sql_io/iterators/row_iterator.h
-        sql/sql_io/a2_table.h
+        sql/sql_io/b1_table.h
         sql/sql_exec/sql_tcl/b_handler.h
         sql/sql_exec/sql_tcl/b_handler.cc
         storage/innobase/a0_handler/ha_innodb.cc
@@ -57,7 +57,7 @@ add_executable(innobase_lite
         sql/sql_exec/sql_tcl/a0_transaction.h
         sql/sql_exec/sql_tcl/a0_transaction.cc
         sql/sql_exec/sql_tcl/a0_xa.h
-        sql/sql_io/a2_table.cc
+        sql/sql_io/b1_table.cc
         sql/sql_exec/sql_tcl/d_sql_plugin_ref.h
         sql/sql_exec/sql_tcl/d_sql_plugin_ref.cc
         sql/sql_exec/sql_tcl/z_transaction_info.cc
@@ -78,9 +78,9 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/b1_sql_insert.cc
         sql/sql_exec/sql_dml/sql_dql/a1_sql_select.cc
         sql/sql_exec/sql_dml/sql_dql/b1_sql_union.cc
-        sql/sql_io/b1_item.cc
+        sql/sql_io/c1_item.cc
         sql/sql_io/query_result.h
-        sql/sql_io/c1_field.cc
+        sql/sql_io/c2_field.cc
         sql/conn_handler/a_connection_acceptor.h
         sql/conn_handler/a_socket_connection.h
         sql/conn_handler/b1_connection_handler_manager.h
@@ -96,12 +96,12 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dcl_later/auth/auth_common.h
         sql/sql_exec/sql_ddl/sql_db.h
         sql/sql_exec/sql_ddl/sql_db.cc
-        sql/sql_io/mdl.h
-        sql/sql_io/mdl.cc
+        sql/sql_io/b0_mdl.h
+        sql/sql_io/b0_mdl.cc
         sql/sql_exec/sql_tcl/a0_xa.cc
         sql/sql_exec/sql_dml/sql_dql/a1_sql_select.h
         sql/sql_exec/sql_dml/z_sql_dml.h
-        sql/sql_io/b1_item.h
+        sql/sql_io/c1_item.h
         sql/sql_exec/sql_dml/sql_dql/b1_sql_union.h
         sql/sql_exec/b0_sql_class.cc
         sql/sql_exec/b0_sql_class.h
@@ -111,5 +111,5 @@ add_executable(innobase_lite
         sql/sql_exec/sql_dml/sql_dql/a2_sql_show.h
         sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.h
         sql/sql_exec/sql_dml/sql_dql/z1_sql_show_processlist.cc
-        sql/sql_io/c1_field.h
+        sql/sql_io/c2_field.h
 )
