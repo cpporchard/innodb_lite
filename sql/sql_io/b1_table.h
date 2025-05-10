@@ -2,7 +2,7 @@
 #define TABLE_INCLUDED
 #include <memory>
 
-#include "b0_mdl.h"
+#include "b2_mdl.h"
 #include "../sql_exec/sql_tcl/b_handler.h"
 #include "../sql_exec/sql_tcl/a0_xa.h"
 #include "../sql_exec/sql_tcl/z_transaction_info.h"
