@@ -5,7 +5,7 @@
 #ifndef XA_H
 #define XA_H
 
-// #include "sql_io/table.h"
+// #include "sql_io/a_table.h"
 #include "../../my_alloc.h"
 #include "../../sql_list.h"
 

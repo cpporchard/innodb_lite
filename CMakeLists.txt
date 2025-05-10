@@ -8,7 +8,7 @@ add_executable(innobase_lite
         sql/sql_io/iterators/basic_row_iterators.cc
         sql/sql_io/iterators/basic_row_iterators.h
         sql/sql_io/iterators/row_iterator.h
-        sql/sql_io/table.h
+        sql/sql_io/a_table.h
         sql/sql_exec/sql_tcl/b_handler.h
         sql/sql_exec/sql_tcl/b_handler.cc
         storage/innobase/a0_handler/ha_innodb.cc
@@ -57,7 +57,7 @@ add_executable(innobase_lite
         sql/sql_exec/sql_tcl/a0_transaction.h
         sql/sql_exec/sql_tcl/a0_transaction.cc
         sql/sql_exec/sql_tcl/a0_xa.h
-        sql/sql_io/table.cc
+        sql/sql_io/a_table.cc
         sql/sql_exec/sql_tcl/d_sql_plugin_ref.h
         sql/sql_exec/sql_tcl/d_sql_plugin_ref.cc
         sql/sql_exec/sql_tcl/z_transaction_info.cc
