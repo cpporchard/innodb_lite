@@ -14,6 +14,17 @@ struct MY_SQL_PARSER_LTYPE {};
 using POS = MY_SQL_PARSER_LTYPE;
 
 
+template <typename Context>
+class Parse_tree_node_tmpl {
+};
+
+struct Parse_context {
+};
+
+typedef Parse_tree_node_tmpl<Parse_context> Parse_tree_node;
+
+
+
 class Parse_tree_root {
 protected:
     Parse_tree_root() = default;

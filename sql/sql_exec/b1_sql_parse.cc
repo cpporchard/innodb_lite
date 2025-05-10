@@ -1,5 +1,5 @@
 #include "a1_sql_lex.h"
-#include "../sql_io/a_table.h"
+#include "../sql_io/a2_table.h"
 #include "sql_dcl_later/auth/auth_common.h"
 #include "sql_ddl/sql_db.h"
 #include "sql_tcl/a0_transaction.h"

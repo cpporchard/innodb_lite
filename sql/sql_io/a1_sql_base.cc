@@ -27,11 +27,11 @@
   @retval  true   Error, reported.
 */
 
-#include "sql_base.h"
+#include "a1_sql_base.h"
 
 #include <sys/types.h>
 
-#include "a_table.h"
+#include "a2_table.h"
 
 bool open_tables_for_query(THD *thd, Table_ref *tables, int flags){
     return true;

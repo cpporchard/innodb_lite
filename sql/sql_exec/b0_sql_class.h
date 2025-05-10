@@ -5,7 +5,7 @@
 #ifndef SQL_CLASS_H
 #define SQL_CLASS_H
 #include "a1_sql_lex.h"
-#include "../sql_io/a_table.h"
+#include "../sql_io/a2_table.h"
 
 class Locked_tables_list {
 public:

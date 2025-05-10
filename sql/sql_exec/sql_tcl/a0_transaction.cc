@@ -1,6 +1,6 @@
 #include <sys/types.h>
 
-#include "../../sql_io/a_table.h"
+#include "../../sql_io/a2_table.h"
 
 int ha_commit_trans(THD *thd, bool all, bool ignore_global_read_lock = false);
 
