@@ -10,13 +10,13 @@
 
 
 struct LEX;
-class b_handler;
+class handler;
 
 struct TABLE_SHARE {
 };
 
 struct TABLE {
-    b_handler *file{nullptr};
+    handler *file{nullptr};
     uchar * record;
 };
 

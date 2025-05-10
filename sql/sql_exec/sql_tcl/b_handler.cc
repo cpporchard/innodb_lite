@@ -7,11 +7,11 @@
 #define MYSQL_TABLE_IO_WAIT(OP, INDEX, RESULT, PAYLOAD) PAYLOAD
 
 
-int b_handler::ha_rnd_init(bool scan) {
+int handler::ha_rnd_init(bool scan) {
     return rnd_init(scan);
 }
 
-int b_handler::ha_rnd_next(uchar *buf) {
+int handler::ha_rnd_next(uchar *buf) {
     int result;
     result = rnd_next(buf);
 
@@ -27,7 +27,7 @@ int b_handler::ha_rnd_next(uchar *buf) {
     return result;
 }
 
-int b_handler::ha_extra(enum ha_extra_function operation) {
+int handler::ha_extra(enum ha_extra_function operation) {
     return extra(operation);
 }
 

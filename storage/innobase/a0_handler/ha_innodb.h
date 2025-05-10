@@ -8,7 +8,7 @@ struct TABLE;
 struct handlerton;
 struct TABLE_SHARE;
 
-class ha_innobase : public b_handler {
+class ha_innobase : public handler {
 public:
     ha_innobase(handlerton *hton, TABLE_SHARE *table_arg);
 

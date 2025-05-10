@@ -5,7 +5,7 @@
 
 trx_t *trx_allocate_for_mysql(void) ;
 
-ha_innobase::ha_innobase(handlerton *hton, TABLE_SHARE *table_share): b_handler(hton, table_share) {
+ha_innobase::ha_innobase(handlerton *hton, TABLE_SHARE *table_share): handler(hton, table_share) {
     // Constructor logic
 }
 
